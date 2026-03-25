@@ -1,11 +1,5 @@
 # REST API Reference Documentation - 2.12
 
-> **Breadcrumb:** [CAST Dashboards](https://doc.castsoftware.com/export/DASHBOARDS/index.html) › [CAST Dashboards](https://doc.castsoftware.com/export/DASHBOARDS/CAST+Dashboards.html) › [RestAPI Reference Documentation](https://doc.castsoftware.com/export/DASHBOARDS/RestAPI+Reference+Documentation.html)
-
-*Created by James Hurrell on Apr 4, 2024*
-
-> **HINT:** you may want to use **double quotes** (`"search"`) to surround your search term if you are having trouble finding the term you need.
-
 ---
 
 ## On this page
@@ -41,13 +35,13 @@
 
 ## Resources and Services
 
-- [Application Structure Resources - 2.11](https://doc.castsoftware.com/export/DASHBOARDS/Application+Structure+Resources+-+2.11.html)
-- [Engineering Resources - 2.11](https://doc.castsoftware.com/export/DASHBOARDS/Engineering+Resources+-+2.11.html)
-- [Health Results Resources - 2.11](https://doc.castsoftware.com/export/DASHBOARDS/Health+Results+Resources+-+2.11.html)
-- [Quality and Sizing Model Resources - 2.11](https://doc.castsoftware.com/export/DASHBOARDS/Quality+and+Sizing+Model+Resources+-+2.11.html)
-- [Report Service - 2.11](https://doc.castsoftware.com/export/DASHBOARDS/Report+Service+-+2.11.html)
-- [Server Services - 2.11](https://doc.castsoftware.com/export/DASHBOARDS/Server+Services+-+2.11.html)
-- [User Session Services - 2.11](https://doc.castsoftware.com/export/DASHBOARDS/User+Session+Services+-+2.11.html)
+- [Application Structure Resources - 2.11](Application+Structure+Resources+-+2.11.md)
+- [Engineering Resources - 2.11](Engineering+Resources+-+2.11.md)
+- [Health Results Resources - 2.11](Health+Results+Resources+-+2.11.md)
+- [Quality and Sizing Model Resources - 2.11](Quality+and+Sizing+Model+Resources+-+2.11.md)
+- [Report Service - 2.11](Report+Service+-+2.11.md)
+- [Server Services - 2.11](Server+Services+-+2.11.md)
+- [User Session Services - 2.11](User+Session+Services+-+2.11.md)
 
 **Target audience:**
 
