@@ -239,6 +239,56 @@ This resource is based on the use of the `domains.properties` file.
 | PUT | application/json | `server/domains-bindings` | Update the domains bindings, or create new domains bindings. A triplet (domain, data source, central) is replaced for an existing domain or added if new. This web service triggers the "reload" service for the domains listed in the payload. This web service overwrites the `domains.properties` file. *(Admin only)* |
 | DELETE | application/json | `server/domains-bindings` | Remove domains. Overwrites the `domains.properties` file. *(Admin only)* |
 
+#### ⚠️ Warning for PUT Operation
+
+This service accepts the "Authorization" HTTP header to transmit user's credentials, so that a prior call to the login "service" is not required. Thus, we can start the Web Server with an empty list of domains, and bypass the "login" service that prevents connection when no domain is defined.
+In case of exception when writing this file, an HTTP Status "403 Forbidden" is returned. Check the permissions of this file.
+
+Assuming there are two existing domains AED1, AED2, add a new domain:
+```json
+[
+	{
+		"name": "AED3",
+		"dataSource": "DEV_CSS2",
+		"schema": "appli1_central"
+	}
+]
+```
+
+Assuming there are three existing domains AED1, AED2, AED3, change schemas for domains AED1, AED2:
+```json
+[
+	{
+		"name": "AED1",
+		"dataSource": "DEV_CSS2",
+		"schema": "appliA_central"
+	},
+	{
+		"name": "AED2",
+		"dataSource": "DEV_CSS2",
+		"schema": "appliB_central"
+	}
+]
+```
+
+#### ⚠️ Warning for DELETE Operation
+
+This service accepts the **`Authorization`** HTTP header to transmit the user’s credentials, so a prior call to the login *service* is not required.  
+Thus, we can start the Web Server with an empty list of domains and bypass the *login* service that prevents connection when no domain is defined.
+
+If an exception occurs while writing this file, an HTTP status **`403 Forbidden`** is returned.  
+Check the permissions of this file.
+
+Assuming there are two existing domains **AED1** and **AED2**, to remove domain **AED2**:
+
+```json
+[
+  {
+    "name": "AED2"
+  }
+]
+```
+
 ### JSON Representation
 
 | Properties | Description | Type | Occurs |
