@@ -671,8 +671,8 @@ Web Services may raise errors if following constraints are not verified:
 | GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/common-categories` | Get an array of all common categories definitions. |
 | PUT | application/json | `{Domain}/common-categories` | Update a collection of common categories. **Warning:** If some tags are missing, then they will be deleted in database. |
 | PUT | text/csv | `{Domain}/common-categories` | Bulk updates of ALL common categories. This call creates new categories and tags, updates categories and tags labels, removes categories and tags. **Warning:** All existing categories must be put in this payload (see result of GET), otherwise they will be deleted. **Warning:** A category must define at least one tag or one sub-category. **Warning:** A tag or a category without key is considered as new item to create. |
-| POST | application/json | `{Domain}/common-categories` | Create a collection of common categories. |
-| DELETE | application/json | `{Domain}/common-categories` | Delete a collection of common categories (tags to Applications assignments are deleted). |
+| POST | application/json | `{Domain}/common-categories` | Create a collection of common categories. Request content example: `[ { "label":"MyTags", "tags": [ {"label":"Favorites"}, {"label":"Major"}, {"label":"Minor"} ] } ]` Response content example: `[{ "key":"5", "label":"MyTags", "tags": [ {"key":"10", "label":"Favorites"}, {"key":"11", "label":"Major"}, {"key":"12", "label":"Minor"} ] } ]`|
+| DELETE | application/json | `{Domain}/common-categories` | Delete a collection of common categories (tags to Applications assignments are deleted). Request content example: `[ { "key" : "1" }, { "key" : "2" }, { "key" : "3" } ]`|
 
 ### JSON Representations
 
@@ -707,7 +707,7 @@ Web Services may raise errors if following constraints are not verified:
 |---|---|---|---|
 | Category Label | String | Category label | A label for a category to create or to update |
 | Category Key | String | Category key (empty for a creation) | A key for an existing category |
-| Item Type | String | Item types: either `TAG` for a Regular Category or `CATEGORY` for a Parent Category | |
+| Item Type | String | Item types: either `TAG` for a Regular Category or `CATEGORY` for a Parent Category |Item types: either `TAG` for a Regular Category or `CATEGORY` for a Parent Category|
 | Item Label | String | Tag or Sub Category label | If Item Type is `TAG`, a label for a tag to create or update. If Item Type is `CATEGORY`, a sub category referred with a label for a category created in this payload |
 | Item Key | String | Tag or Sub Category key (empty for an item created with this payload) | If Item Type is `TAG`, a key for an existing tag. If Item Type is `CATEGORY`, a key for an existing category |
 
