@@ -7,10 +7,18 @@
 ## On this page
 
 - [User](#user)
+  - [URI Templates](#uri-templates)
+  - [Parameters](#parameters)
+  - [JSON Representation](#json-representation)
+  - [JSON Example](#json-example)
 - [Login](#login)
+  - [URI Templates](#uri-templates-1)
 - [Logout](#logout)
+  - [URI Templates](#uri-templates-2)
 - [Ping](#ping)
+  - [URI Templates](#uri-templates-3)
 - [Enable admin role](#enable-admin-role)
+  - [URI Templates](#uri-templates-4)
 
 ---
 
@@ -20,14 +28,14 @@
 
 | HTTP Action | Media Type | URI Templates | Description |
 |---|---|---|---|
-| GET | application/json | `user{?parameters}` | Get information about the current user requesting the REST API |
+| GET | application/json | `user{?parameters}` | Get information about current user requesting REST API. |
 
 ### Parameters
 
 | URI Parameter | Description | Values | Default value |
 |---|---|---|---|
-| application-name | Get role info for a specific application. Use `$all` for all authorized apps. | String | none (mandatory) |
-| db-type | `AAD` or `ADG` data type | String | none (mandatory) |
+| application-name | Get information about assigned roles for the specific application. You can pass `$all` to get list of all authorized applications for the user. | String | none (Mandatory parameter) |
+| db-type | `AAD` or `ADG` data type to get list of applications | String | none (Mandatory parameter) |
 
 ### JSON Representation
 
@@ -38,20 +46,22 @@
 | contextUuid | A unique identifier of the current user session | String | 1 |
 | administrator | Check whether the user has `ADMIN` role | Boolean | 1 |
 | superConsumer | Check whether the user has permission to consume all applications without restriction | Boolean | 1 |
-| userApplicationDetail[] | List of matched applications with assigned roles | Array | 0..* |
+| userApplicationDetail[] | This list of matched applications returns roles assigned for this user | Array | 0..* |
+| userApplicationDetail[].applicationDetail | Application details | Structure | 1 |
 | userApplicationDetail[].applicationDetail.name | Application name | String | 1 |
 | userApplicationDetail[].applicationDetail.href | Auto reference | URI | 1 |
-| userApplicationDetail[].applicationDetail.adgDatabase | Central database hosting this application (Measurement DB only) | String | 0..1 |
-| userApplicationDetail[].applicationDetail.nbOfAuthorizedSnapshots | Number of authorized snapshots | Integer | 1 |
-| userApplicationDetail[].applicationDetail.latestSnapshotDate | Latest snapshot date | Date | 1 |
-| userApplicationDetail[].applicationRoles.qualityManager | Has `QUALITY_MANAGER` role | Boolean | 1 |
-| userApplicationDetail[].applicationRoles.exclusionManager | Has `EXCLUSION_MANAGER` role | Boolean | 1 |
-| userApplicationDetail[].applicationRoles.qualityAutomationManager | Has `QUALITY_AUTOMATION_MANAGER` role | Boolean | 1 |
-| userApplicationDetail[].applicationRoles.codeRestricted | Has `CODE_RESTRICTED` role | Boolean | 1 |
+| userApplicationDetail[].applicationDetail.adgDatabase | For a Measurement Database, name of the Central database hosting this application | String | 0..1 |
+| userApplicationDetail[].applicationDetail.nbOfAuthorizedSnapshots | Number of authorized or valid snapshots for this application | Integer | 1 |
+| userApplicationDetail[].applicationDetail.latestSnapshotDate | Latest snapshot date for the selected application | Date | 1 |
+| userApplicationDetail[].applicationRoles | Roles assigned for this application | Structure | 1 |
+| userApplicationDetail[].applicationRoles.qualityManager | Check whether the user has `QUALITY_MANAGER` role for this application | Boolean | 1 |
+| userApplicationDetail[].applicationRoles.exclusionManager | Check whether the user has `EXCLUSION_MANAGER` role for this application | Boolean | 1 |
+| userApplicationDetail[].applicationRoles.qualityAutomationManager | Check whether the user has `QUALITY_AUTOMATION_MANAGER` role for this application | Boolean | 1 |
+| userApplicationDetail[].applicationRoles.codeRestricted | Check whether the user has `CODE_RESTRICTED` role for this application | Boolean | 1 |
 
 ### JSON Example
 
-**Simple user (no application detail)**
+**GET DEMO**
 
 ```json
 {
@@ -63,7 +73,7 @@
 }
 ```
 
-**Admin user with application detail**
+**GET DEMO**
 
 ```json
 {
@@ -94,29 +104,34 @@
 
 ## Login
 
-Pseudo REST service to trigger a creation of an end-user session. Requires an `Authorization` header containing username and password.
+Pseudo REST service to trigger a creation of end user session. Require an "Authorization" header containing user name and password.
+
+Prior to any request, REST client must authenticate on behalf of the current end-user, using the "login" request. This request must contain an HTTP header containing the credentials UserName:Password encoded in base 64.
 
 ```http
 GET /.../rest/user/login HTTP/1.1
 Authorization: Basic Y2FzdDpjYXN0
 ```
 
-- If credentials are valid: **HTTP/1.1 200 OK**
-- If credentials are invalid: **HTTP/1.1 401 Unauthorized**
+If credentials are valid then the server replies: **HTTP/1.1 200 OK**
 
-> **Note:** A `Set-Cookie` HTTP header is sent back from the server in the first response.
+If credentials are invalid then the server replies: **HTTP/1.1 401 Unauthorized**
+
+> **Note:** A `Set-Cookie` HTTP header is sent back from the server in the first server response.
 
 ### URI Templates
 
 | HTTP Action | Media Type | URI Templates | Description |
 |---|---|---|---|
-| GET | application/json | `user/login` | Create an end-user session |
+| GET | application/json | `user/login` | Pseudo REST service to trigger a creation of end user session. Require an "Authorization" header containing user name and password |
 
 ---
 
 ## Logout
 
-Pseudo REST service to end a user's session. Replies with `HTTP/1.1 401 Unauthorized`.
+Pseudo REST service to end a user's session.
+
+The following request closes the current session and replies "HTTP/1.1 401 Unauthorized":
 
 ```http
 GET /.../rest/user/logout HTTP/1.1
@@ -126,31 +141,31 @@ GET /.../rest/user/logout HTTP/1.1
 
 | HTTP Action | Media Type | URI Templates | Description |
 |---|---|---|---|
-| GET | application/json | `user/logout` | End a user's session |
+| GET | application/json | `user/logout` | Pseudo REST service to end a user's session |
 
 ---
 
 ## Ping
 
-Pseudo REST service to test whether the current client can access the server.
+Pseudo REST service to test whether current client can access to the server, use the "ping" request.
 
 ### URI Templates
 
 | HTTP Action | Media Type | URI Templates | Description |
 |---|---|---|---|
-| GET | application/json | `user/ping` | Test a user session |
+| GET | application/json | `user/ping` | Pseudo REST service to test a user session. |
 
 ---
 
 ## Enable admin role
 
-This resource grants admin role to the current logged-in user when no other user has the admin role.
+This resource provides admin role to the current logged in user when no other user has admin role.
 
-> **Note:** This web service is disabled for **INTEGRATED** security mode. The `PUT` endpoint works only for localhost in default and LDAP security modes.
+> **Note:** This web service is disabled for **INTEGRATED** security mode. The `PUT` endpoint works only for localhost in default and LDAP security mode.
 
 ### URI Templates
 
 | HTTP Action | Media Type | URI Templates | Description |
 |---|---|---|---|
-| GET | application/json | `user/admin-role` | Check whether any user has admin role for the current security mode |
-| PUT | application/json | `user/admin-role` | Set the current user as admin (fails if another user already has admin role) |
+| GET | application/json | `user/admin-role` | Check whether any user exists with admin role for the current security mode. |
+| PUT | application/json | `user/admin-role` | Set the current user as admin, fails if another user exist with admin role |
