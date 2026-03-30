@@ -126,7 +126,7 @@
 | rulePattern | Reference to the rule pattern | URI | 1 |
 | rulePattern.href | URI to the rule pattern | String | 1 |
 | rulePattern.name | Rule Name | String | 1 |
-| remediationEffort | A workload in Man x Minutes of a violation occurrence remediation. This value is selected as follow with a priority order: a specific remediation effort for this rule / a CISQ Default effort, deduced from the attachment of the rule to the CISQ Assessment model extension / a CISQ Default effort deduced from the CISQ tagging of the rule by the Quality Standard Mapping extension / a AIP Default effort deduced from attachment of the rule to a technical criterion. | Number | 1 |
+| remediationEffort | A workload in Man x Minutes of a violation occurrence remediation.<br/><br/>This value is selected as follow with a priority order:<br/>- a specific remediation effort for this rule<br/>- a CISQ Default effort, deduced from the attachment of the rule to the CISQ Assessment model extension<br/>- a CISQ Default effort deduced from the CISQ tagging of the rule by the Quality Standard Mapping extension<br/>- a AIP Default effort deduced from attachment of the rule to a technical criterion. | Number | 1 |
 | applicable | True if the rule is applicable for the latest snapshot of this domain. | Boolean | 1 |
 
 ---
