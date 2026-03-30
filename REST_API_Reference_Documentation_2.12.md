@@ -39,8 +39,8 @@
 - [Engineering Resources - 2.11](Engineering_Resources_2.11.md)
 - [Health Results Resources - 2.11](Health_Results_Resources_2.11.md)
 - [Quality and Sizing Model Resources - 2.11](Quality_and_Sizing+Model_Resources_2.11.md)
-- [Report Service - 2.11](Report_Service_2.11.md)
-- [Server Services - 2.11](Server_Services_2.12.md)
+- [Report Service - 2.12](Report_Service_2.12.md)
+- [Server Services - 2.12](Server_Services_2.12.md)
 - [User Session Services - 2.11](User_Session_Services_2.11.md)
 
 **Target audience:**
