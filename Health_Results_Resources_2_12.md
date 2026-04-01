@@ -70,7 +70,7 @@
     - `text/csv`
     - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
 
-- **PUT**  `{Domain}/results`
+- **PUT**  `{Domain}/results{?parameters}`
 
   - *Description*:
 
@@ -566,10 +566,10 @@ ADG Database;Application Name;Module Name;Metric Id;Result
 | modulesResults | Results Breakdown by module | Array | 0..1 |
 | modulesResults[] | See Module Result structure | Structure | 0..* |
 | reference | Reference to a Business Criterion | Structure | 1 |
-| reference.href | URI | 1 |
-| reference.name | String | 1 |
-| reference.shortName | String | 1 |
-| reference.key | Integer | 1 |
+| reference.href | Reference to a Business Criterion | URI | 1 |
+| reference.name | | String | 1 |
+| reference.shortName |  | String | 1 |
+| reference.key | | Integer | 1 |
 | transactionResults | Results Breakdown by transaction | Array | 0..1 |
 | transactionResults[] | See Transaction Result structure | Structure | 0..* |
 
@@ -620,10 +620,10 @@ ADG Database;Application Name;Module Name;Metric Id;Result
 | modulesResults | Results Breakdown by module | Array | 0..1 |
 | modulesResults[] | See Module Result structure | Structure | 0..* |
 | reference | Reference to a Quality Indicator | Structure | 1 |
-| reference.href | URI | 1 |
-| reference.name | String | 1 |
-| reference.shortName | String | 1 |
-| reference.key | Integer | 1 |
+| reference.href | | URI | 1 |
+| reference.name | | String | 1 |
+| reference.shortName | | String | 1 |
+| reference.key | | Integer | 1 |
 | reference.gradeAggregators | Indicators computed with this result | Array | 1 |
 | reference.gradeAggregators[].key | A parent Quality Indicator key | String | 0..* |
 | reference.gradeAggregators[].weight | Contribution weight | Integer | 1 |
@@ -678,10 +678,10 @@ ADG Database;Application Name;Module Name;Metric Id;Result
 | modulesResults | Results Breakdown by module | Array | 0..1 |
 | modulesResults[] | See Module Result structure | Structure | 0..* |
 | reference | Reference to a Quality Indicator | Structure | 1 |
-| reference.href | URI | 1 |
-| reference.name | String | 1 |
-| reference.shortName | | |
-| reference.key | Integer | 1 |
+| reference.href | | URI | 1 |
+| reference.name | | String | 1 |
+| reference.shortName | | String | 1 |
+| reference.key | | Integer | 1 |
 | reference.gradeAggregators | Indicators computed with this result | Array | 1 |
 | reference.gradeAggregators[].key | A parent Quality Indicator key | String | 0..* |
 | reference.gradeAggregators[].weight | Contribution weight | Integer | 1 |
@@ -736,10 +736,10 @@ ADG Database;Application Name;Module Name;Metric Id;Result
 | modulesResults | Results Breakdown by module | Array | 0..1 |
 | modulesResults[] | See Module Result structure | Structure | 0..* |
 | reference | Reference to a Quality Indicator | Structure | 1 |
-| reference.href | URI | 1 |
-| reference.name | String | 1 |
-| reference.shortName | | |
-| reference.key | Integer | 1 |
+| reference.href | | URI | 1 |
+| reference.name | | String | 1 |
+| reference.shortName | | String | 1 |
+| reference.key | | Integer | 1 |
 | reference.gradeAggregators | Indicators computed with this result | Array | 1 |
 | reference.gradeAggregators[].key | A parent Quality Indicator key | String | 0..* |
 | reference.gradeAggregators[].weight | Contribution weight | Integer | 1 |
@@ -794,10 +794,10 @@ ADG Database;Application Name;Module Name;Metric Id;Result
 | modulesResults | Results Breakdown by module | Array | 0..1 |
 | modulesResults[] | See Module Result structure | Structure | 0..* |
 | reference | Reference to a Quality Indicator | Structure | 1 |
-| reference.href | URI | 1 |
-| reference.name | String | 1 |
-| reference.shortName | | |
-| reference.key | Integer | 1 |
+| reference.href | | URI | 1 |
+| reference.name | | String | 1 |
+| reference.shortName | | String | 1 |
+| reference.key | | Integer | 1 |
 | reference.gradeAggregators | Indicators computed with this result | Array | 1 |
 | reference.gradeAggregators[].key | A parent Quality Indicator key | String | 0..* |
 | reference.gradeAggregators[].weight | Contribution weight | Integer | 1 |
@@ -838,7 +838,7 @@ ADG Database;Application Name;Module Name;Metric Id;Result
 
 | Properties | Description | Type | Occurs |
 |---|---|---|---|
-| type | Value is among: `technical-size-measures`, `functional-weight-measures`, `critical-violation-statistics`, `technical-debt-statistics`, `run-time-statistics` | String | 1 |
+| type | Value is among:<br/>`technical-size-measures`,<br/> `functional-weight-measures`,<br/> `critical-violation-statistics`, <br/>`technical-debt-statistics`, <br/>`run-time-statistics` | String | 1 |
 | technologiesResults | Results Breakdown by technology | Array | 0..1 |
 | technologiesResults[] | See Technology Result structure | Structure | 0..* |
 | result | Application snapshot own result | Double | 0..1 |
@@ -846,10 +846,10 @@ ADG Database;Application Name;Module Name;Metric Id;Result
 | modulesResults | Results Breakdown by module | Array | 0..1 |
 | modulesResults[] | See Module Result structure | Structure | 0..* |
 | reference | Reference to a Sizing Measure | Structure | 1 |
-| reference.href | URI | 1 |
-| reference.name | String | 1 |
-| reference.shortName | | |
-| reference.key | Integer | 1 |
+| reference.href | | URI | 1 |
+| reference.name | | String | 1 |
+| reference.shortName | | String | 1 |
+| reference.key | | Integer | 1 |
 
 **GET DEMO/applications/6/snapshots/5/results?sizing-measures=(10151)**
 
@@ -891,10 +891,10 @@ ADG Database;Application Name;Module Name;Metric Id;Result
 | modulesResults | Results Breakdown by module | Array | 0..1 |
 | modulesResults[] | See Module Result structure | Structure | 0..* |
 | reference | Reference to a Sizing Measure | Structure | 1 |
-| reference.href | URI | 1 |
-| reference.name | String | 1 |
-| reference.shortName | | |
-| reference.key | Integer | 1 |
+| reference.href | | URI | 1 |
+| reference.name | | String | 1 |
+| reference.shortName | | String | 1 |
+| reference.key | | Integer | 1 |
 
 **GET DEMO/applications/6/snapshots/5/results?background-facts=(66061)**
 
@@ -931,11 +931,11 @@ ADG Database;Application Name;Module Name;Metric Id;Result
 | Properties | Description | Type | Occurs |
 |---|---|---|---|
 | violationRatio | For a quality rule, this ratio is an input value required to compute the grade according to 4 thresholds. | Structure | 0..1 |
-| violationRatio.totalChecks | Total number of checked items in the current scope | Integer | 1 |
-| violationRatio.failedChecks | Total number of failed items in the current scope | Integer | 1 |
-| violationRatio.successfulChecks | Result of totalChecks - failedChecks | Integer | 1 |
-| violationRatio.ratio | Compliance Ratio, i.e. successfulChecks / totalChecks | Double | 1 |
-| violationRatio.violationOccurrences | Total number of violation occurrences (ex: number of bookmarks). Since AIP 8.3.33 | Integer | 1 |
+| violationRatio<br/>.totalChecks | Total number of checked items in the current scope | Integer | 1 |
+| violationRatio<br/>.failedChecks | Total number of failed items in the current scope | Integer | 1 |
+| violationRatio<br/>.successfulChecks | Result of totalChecks - failedChecks | Integer | 1 |
+| violationRatio<br/>.ratio | Compliance Ratio, i.e. successfulChecks / totalChecks | Double | 1 |
+| violationRatio<br/>.violationOccurrences | Total number of violation occurrences (ex: number of bookmarks). Since AIP 8.3.33 | Integer | 1 |
 
 **GET DEMO/applications/6/snapshots/5/results?quality-indicators=(5080)&select=(violationRatio)**
 
@@ -979,12 +979,12 @@ ADG Database;Application Name;Module Name;Metric Id;Result
 | Properties | Description | Type | Occurs |
 |---|---|---|---|
 | evolutionSummary | Evolution summary between this snapshot and the previous one | Structure | 0..1 |
-| evolutionSummary.removedCriticalViolations | Number of critical violations removed since the previous snapshot | Integer | 1 |
-| evolutionSummary.addedCriticalViolations | Number of critical violations added since the previous snapshot | Integer | 1 |
-| evolutionSummary.criticalViolationsInNewAndModifiedCode | Number of critical violations in new and modified code since the previous snapshot | Integer | 1 |
-| evolutionSummary.totalCriticalViolations | Total number of critical violations | Integer | 1 |
-| evolutionSummary.addedViolations | Number of violations added since the previous snapshot | Integer | 1 |
-| evolutionSummary.removedViolations | Number of violations removed since the previous snapshot | Integer | 1 |
+| evolutionSummary<br/>.removedCriticalViolations | Number of critical violations removed since the previous snapshot | Integer | 1 |
+| evolutionSummary<br/>.addedCriticalViolations | Number of critical violations added since the previous snapshot | Integer | 1 |
+| evolutionSummary<br/>.criticalViolationsInNewAndModifiedCode | Number of critical violations in new and modified code since the previous snapshot | Integer | 1 |
+| evolutionSummary<br/>.totalCriticalViolations | Total number of critical violations | Integer | 1 |
+| evolutionSummary<br/>.addedViolations | Number of violations added since the previous snapshot | Integer | 1 |
+| evolutionSummary<br/>.removedViolations | Number of violations removed since the previous snapshot | Integer | 1 |
 
 **GET DEMO/applications/6/snapshots/5/results?quality-indicators=(60014)&select=(evolutionSummary)**
 
@@ -1136,11 +1136,33 @@ ADG Database;Application Name;Module Name;Metric Id;Result
 
 ### URI Templates & Parameters
 
-| HTTP Action | Media Type | URI Templates | Description |
-|---|---|---|---|
-| GET | application/json | `{Domain}/quality-standards-categories/{QualityStandardCategory}?{parameters}` | Array of all quality standard references (aka tags) for a given category (OWASP-2017, STIG-V4R8-CAT1, etc.) |
-| GET | application/json | `{Domain}/applications/{ID}/quality-standards` | Array of quality standard references for an application. Only quality standard references with violations are reported. |
-| GET | application/json | `{Domain}/applications/{ID}/snapshots/{SnapshotID}/quality-standards` | Quality standard references for an application snapshot |
+- **GET** `{Domain}/quality-standards-categories/{QualityStandardCategory}?{parameters}` 
+
+  - *Description*:
+
+    Array of all quality standard references (aka tags) for a given category (OWASP-2017, STIG-V4R8-CAT1, etc.)
+    
+  - *Media Type*:
+    - `application/json`
+
+- **GET** `{Domain}/applications/{ID}/quality-standards` 
+
+  - *Description*:
+
+    Array of quality standard references for an application. Only quality standard references with violations are reported.
+    
+  - *Media Type*:
+    - `application/json`
+
+- **GET** `{Domain}/applications/{ID}/snapshots/{SnapshotID}/quality-standards` 
+
+  - *Description*:
+
+    Quality standard references for an application snapshot
+    
+  - *Media Type*:
+    - `application/json`
+    
 
 ### JSON Representation
 
@@ -1172,13 +1194,42 @@ ADG Database;Application Name;Module Name;Metric Id;Result
 
 ## Custom Quality Tags
 
-### URI Templates & Parameters
+### URI Templates 
 
-| HTTP Action | Media Type | URI Templates | Description |
-|---|---|---|---|
-| GET | text/csv | `{Domain}/custom-quality-tags` | Download CUSTOM TAGS mapping. Example: `curl --header "Accept: text/csv" http://localhost:8080/CAST-RESTAPI/rest/{Domain}/custom-quality-tags` |
-| PUT | text/csv | `{Domain}/custom-quality-tags` | Add rule/CUSTOM TAGS mapping. If the mapping already exists, it is left unchanged. The tag must begin with the `CUSTOM` prefix. All new TAGS are automatically assigned to the `CUSTOM` standard. Example: `curl -X PUT --header "Content-type: text/csv" --upload-file data.csv http://localhost:8080/CAST-RESTAPI/rest/{Domain}/custom-quality-tags` |
-| DELETE | text/csv | `{Domain}/custom-quality-tags` | Remove rule/CUSTOM TAGS mapping. The tag must begin with the `CUSTOM` prefix. All deleted TAGS are automatically removed from `CUSTOM` standard. Example: `curl -X DELETE --header "Content-type: text/csv" --upload-file data.csv http://localhost:8080/CAST-RESTAPI/rest/{Domain}/custom-quality-tags` |
+- **GET** `{Domain}/custom-quality-tags` 
+
+  - *Description*:
+
+    Download CUSTOM TAGS mapping. 
+    
+    Example: `curl --header "Accept: text/csv" http://localhost:8080/CAST-RESTAPI/rest/{Domain}/custom-quality-tags`
+    
+  - *Media Type*:
+    - `text/csv`
+
+- **PUT** `{Domain}/custom-quality-tags` 
+
+  - *Description*:
+
+    Add rule/CUSTOM TAGS mapping. If the mapping already exists, it is left unchanged. The tag must begin with the `CUSTOM` prefix. All new TAGS are automatically assigned to the `CUSTOM` standard.
+
+    Example: `curl -X PUT --header "Content-type: text/csv" --upload-file data.csv http://localhost:8080/CAST-RESTAPI/rest/{Domain}/custom-quality-tags`
+    
+  - *Media Type*:
+    - `text/csv`
+
+
+- **DELETE** `{Domain}/custom-quality-tags` 
+
+  - *Description*:
+
+    Remove rule/CUSTOM TAGS mapping. The tag must begin with the `CUSTOM` prefix. All deleted TAGS are automatically removed from `CUSTOM` standard.
+
+    Example: `curl -X DELETE --header "Content-type: text/csv" --upload-file data.csv http://localhost:8080/CAST-RESTAPI/rest/{Domain}/custom-quality-tags`
+   
+  - *Media Type*:
+    - `text/csv`
+    
 
 ### CSV Representation
 
@@ -1198,11 +1249,17 @@ Rule ID;Tag
 
 ## Background Facts Injection
 
-### URI Templates & Parameters
+### URI Templates 
 
-| HTTP Action | Media Type | URI Templates | Description |
-|---|---|---|---|
-| PUT | application/json | `{Domain}/applications/{ApplicationID}/snapshots/${SnapshotID}/results` | Update an array of Background Facts results for a given snapshot and a given application |
+- **PUT** `{Domain}/applications/{ApplicationID}/snapshots/${SnapshotID}/results`
+
+  - *Description*:
+
+    Update an array of Background Facts results for a given snapshot and a given application
+    
+  - *Media Type*:
+    - `application/json`
+
 
 ### JSON Representation
 
