@@ -11,7 +11,7 @@ User Session Services_2.11.md
 
 Each markdown file has been converted to markdown from a HTML page edited with Confluence.
 
-###. Some styling and formatting rules.
+### Some styling and formatting rules.
 
 Each Web Service is described following a template: URI templates, parameters, JSON Examples etc.
 Please apply the same template to insert new Web Services documentation or update existing web Services documentation.
