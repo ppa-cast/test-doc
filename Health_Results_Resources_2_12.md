@@ -57,23 +57,144 @@
 
 ## Assessment Result
 
-### URI Templates & Parameters
+### URI Templates 
 
-| HTTP Action | Media Type | URI Templates | Description |
-|---|---|---|---|
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/results{?parameters}` | Array of results of a domain split by snapshots, by applications |
-| PUT | text/csv | `{Domain}/results` | Create or update background facts values in a AED or AAD domain for several applications in the last snapshot |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/applications/{ApplicationID}/results{?parameters}` | Array of results for a given application |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/results{?parameters}` | Array of results for a given application and snapshot |
-| PUT | text/csv | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/results{?parameters}` | Create or update background facts values in a AED or AAD domain for a given application and snapshot |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/modules/{ModuleID}/results{?parameters}` | Array of results for a given module |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/results{?parameters}` | Array of results for a given module and snapshot |
-| GET | application/json | `{Domain}/transactions/{TransactionID}/results{?parameters}` | Array of results for a given transaction |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/technologies-results{?parameters}` | Array of results of a domain split by technology |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/applications/{ApplicationID}/technologies-results{?parameters}` | Array of results of a domain split by technology for selected application |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/technologies-results{?parameters}` | Array of results of a domain split by technology for selected application and snapshot |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/modules/{ModuleID}/technologies-results{?parameters}` | Array of results of a domain split by technology for selected module |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/technologies-results{?parameters}` | Array of results of a domain split by technology for selected module and snapshot |
+- **GET**  `{Domain}/results{?parameters}`
+
+  - *Description*:
+
+    Array of results of a domain split by snapshots, by applications
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv`
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **PUT**  `{Domain}/results`
+
+  - *Description*:
+
+    Create or update background facts values in a AED or AAD domain for several applications in the last snapshot
+
+  - *Media Type*:
+    - `text/csv`
+
+- **GET**  `{Domain}/applications/{ApplicationID}/results{?parameters}`
+
+  - *Description*:
+
+    Array of results for a given application
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv`
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **GET**  `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/results{?parameters}`
+
+  - *Description*:
+
+    Array of results for a given application and snapshot
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv`
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **PUT**  `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/results{?parameters}`
+
+  - *Description*:
+
+    Create or update background facts values in a AED or AAD domain for a given application and snapshot
+
+  - *Media Type*:
+    - `text/csv`
+
+- **GET**  `{Domain}/modules/{ModuleID}/results{?parameters}`
+
+  - *Description*:
+
+    Array of results for a given module
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv`
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **GET**  `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/results{?parameters}`
+
+  - *Description*:
+
+    Array of results for a given module and snapshot
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv`
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **GET**  `{Domain}/transactions/{TransactionID}/results{?parameters}`
+
+  - *Description*:
+
+    Array of results for a given transaction
+
+  - *Media Type*:
+    - `application/json`
+
+- **GET**  `{Domain}/technologies-results{?parameters}`
+
+  - *Description*:
+
+    Array of results of a domain split by technology
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv`
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **GET**  `{Domain}/applications/{ApplicationID}/technologies-results{?parameters}`
+
+  - *Description*:
+
+    Array of results of a domain split by technology for selected application
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv`
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **GET**  `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/technologies-results{?parameters}`
+
+  - *Description*:
+
+    Array of results of a domain split by technology for selected application and snapshot
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv`
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **GET**  `{Domain}/modules/{ModuleID}/technologies-results{?parameters}`
+
+  - *Description*:
+
+    Array of results of a domain split by technology for selected module
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv`
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **GET**  `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/technologies-results{?parameters}`
+
+  - *Description*:
+
+    Array of results of a domain split by technology for selected module and snapshot
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv`
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
 
 
 #### URI Parameters
