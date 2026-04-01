@@ -75,338 +75,281 @@
 | GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/modules/{ModuleID}/technologies-results{?parameters}` | Array of results of a domain split by technology for selected module |
 | GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/technologies-results{?parameters}` | Array of results of a domain split by technology for selected module and snapshot |
 
-**URI Parameters**
 
-## `quality-indicators`
+#### URI Parameters
 
-**Description:** Specify a list of quality indicators
+- **quality-indicators**
 
-**Values:**
-Quality Indicators identifiers or keywords, separated by a comma
+    - *Description:* Specify a list of quality indicators
 
-- `.../results/?quality-indicators=(business-criteria)`
-- `.../results/?quality-indicators=(technical-criteria)`
-- `.../results/?quality-indicators=(quality-rules)`
-- `.../results/?quality-indicators=(quality-distributions)`
-- `.../results/?quality-indicators=(quality-measures)`
+    - *Values:* Quality Indicators identifiers or keywords, separated by a comma
 
-Use `c:` modifier to specify direct grade contributors of a Quality Indicator or a Quality Standard reference (aka tag)
+        - `.../results/?quality-indicators=(business-criteria)`
+        - `.../results/?quality-indicators=(technical-criteria)`
+        - `.../results/?quality-indicators=(quality-rules)`
+        - `.../results/?quality-indicators=(quality-distributions)`
+        - `.../results/?quality-indicators=(quality-measures)`
 
-- `c:61027`
-- `c:CISQ`
+        Use `c:` modifier to specify direct grade contributors of a Quality Indicator or a Quality Standard reference (aka tag)
 
-> Note: this list is based on the union set of targeted snapshots
+        - `c:61027`
+        - `c:CISQ`
 
-**Value Modifiers:**
+        > Note: this list is based on the union set of targeted snapshots
 
-- `c:` — specify direct grade contributors of a Quality Indicator or a Quality Standard reference (aka tag)
-- `cc:` — specify critical grade contributors of a Quality Indicator (e.g. `cc:61027`)
-  > Note: the critical contributors of a Business Criterion (eg. `cc:61027`) are the BC's critical children, union the TCs' critical children. A Quality Rule is said to be critical if it is critical for at least one of its parents. In the Assessment Model, some metrics have multiple parents therefore a Quality Rule can be critical for parent A, and non-critical for parent B. In other words, using the `cc` modifier can return non-critical Quality Rules.
-- `nc:` — specify non-critical grade contributors of a Quality Indicator (e.g. `nc:61027`)
-  > Note: the non-critical contributors (`nc`) of a Business Criterion (eg. `nc:61027`) are the BC's non-critical children, union the TCs' non-critical children. A Quality Rule is said to be critical if it is critical for at least one of its parents. In the Assessment Model, some metrics have multiple parents therefore a Quality Rule can be critical for parent A, and non-critical for parent B.
+    - *Value Modifiers:*
 
-**Default value:** `60017` (Total Quality Index) — used if `quality-indicators`, `sizing-measures` and `background-facts` parameters are not set
+        - `c:` — specify direct grade contributors of a Quality Indicator or a Quality Standard reference (aka tag)
+        - `cc:` — specify critical grade contributors of a Quality Indicator (e.g. `cc:61027`)
 
----
+            > Note: the critical contributors of a Business Criterion (eg. `cc:61027`) are the BC's critical children, union the TCs' critical children. A Quality Rule is said to be critical if it is critical for at least one of its parents. In the Assessment Model, some metrics have multiple parents therefore a Quality Rule can be critical for parent A, and non-critical for parent B. In other words, using the `cc` modifier can return non-critical Quality Rules.
 
-## `quality-standards`
+        - `nc:` — specify non-critical grade contributors of a Quality Indicator (e.g. `nc:61027`)
 
-**Description:** Specify a list of quality standards references
+           > Note: the non-critical contributors (`nc`) of a Business Criterion (eg. `nc:61027`) are the BC's non-critical children, union the TCs' non-critical children. A Quality Rule is said to be critical if it is critical for at least one of its parents. In the Assessment Model, some metrics have multiple parents therefore a Quality Rule can be critical for parent A, and non-critical for parent B.
 
-**Values:**
-Quality Standards references, separated by a comma
+    - *Default value:* `60017` (Total Quality Index) — used if `quality-indicators`, `sizing-measures` and `background-facts` parameters are not set
 
-- `.../results/?quality-standards=(CISQ,CISQ-Maintainability)`
+- **quality-standards**
 
-Must be requested with the option in URL: `select=(evolutionSummary)` to retrieve the counts of violations
+    - *Description:* Specify a list of quality standards references
 
-**Value Modifiers:** None
+    - *Values:* Quality Standards references, separated by a comma
 
-**Default value:** None
+        - `.../results/?quality-standards=(CISQ,CISQ-Maintainability)`
 
----
+        > Must be requested with the option in URL: `select=(evolutionSummary)` to retrieve the counts of violations
 
-## `sizing-measures`
+    - *Value Modifiers:* None
+    - *Default value:* None
 
-**Description:** Specify a list of sizing measures
+- **sizing-measures**
 
-**Values:**
-Sizing measures identifiers or keywords, separated by a comma
+    - *Description:* Specify a list of sizing measures
 
-- `.../results/?sizing-measures=(technical-size-measures)`
-- `.../results/?sizing-measures=(functional-weight-measures)`
-- `.../results/?sizing-measures=(critical-violation-statistics)`
-- `.../results/?sizing-measures=(violation-statistics)`
-- `.../results/?sizing-measures=(technical-debt-statistics)`
-- `.../results/?sizing-measures=(run-time-statistics)`
+    - *Values:* Sizing measures identifiers or keywords, separated by a comma
 
-**Value Modifiers:** None
+        - `.../results/?sizing-measures=(technical-size-measures)`
+        - `.../results/?sizing-measures=(functional-weight-measures)`
+        - `.../results/?sizing-measures=(critical-violation-statistics)`
+        - `.../results/?sizing-measures=(violation-statistics)`
+        - `.../results/?sizing-measures=(technical-debt-statistics)`
+        - `.../results/?sizing-measures=(run-time-statistics)`
 
-**Default value:** None
+    - *Value Modifiers:* None
+    - *Default value:* None
 
----
+- **background-facts**
 
-## `background-facts`
+    - *Description:* Specify a list of background facts
 
-**Description:** Specify a list of background facts
+    - *Values:* Background Facts identifiers, separated by a comma
 
-**Values:**
-Background Facts identifiers, separated by a comma
+        - `.../results/?background-facts=(66061)`
 
-- `.../results/?background-facts=(66061)`
+    - *Value Modifiers:* None
+    - *Default value:* None
 
-**Value Modifiers:** None
+- **metrics**
 
-**Default value:** None
+    - *Description:* Specify a list of metrics
 
----
+    - *Values:* Any metric identifier (quality-indicator, sizing-measure or background-fact) or keyword, separated by a comma
 
-## `metrics`
+    - *Value Modifiers:* `c:`, `cc:`, `nc:`
 
-**Description:** Specify a list of metrics
+    - *Default value:* `60017`
 
-**Values:**
-Any metric identifier (quality-indicator, sizing-measure or background-fact) or keyword, separated by a comma
+- **applications**
 
-**Value Modifiers:**
+    - *Description:* Specify a list of applications
 
-- `c:`
-- `cc:`
-- `nc:`
+    - *Values:* Keyword `$all` or application names separated by a comma
 
-**Default value:** `60017`
+        - `.../results/?applications=($all)`
+        - `.../results/?applications=(name1,name with space 2)`
 
----
+    - *Value Modifiers:* None
+    - *Default value:* `$all` (all applications)
 
-## `applications`
+- **modules**
 
-**Description:** Specify a list of applications
+    - *Description:* Specify a list of modules
 
-**Values:**
-Keyword `$all` or application names separated by a comma
+    - *Values:* Keyword `$all` or module names separated by a comma
 
-- `.../results/?applications=($all)`
-- `.../results/?applications=(name1,name with space 2)`
+        - `.../results/?modules=($all)`
+        - `.../results/?modules=(name1,name with space 2)`
 
-**Value Modifiers:** None
+    - *Value Modifiers:* None
+    - *Default value:* None
 
-**Default value:** `$all` (all applications)
+- **technologies**
 
----
+    - *Description:* Specify a list of technologies
 
-## `modules`
+    - *Values:* Keyword `$all` or technology names separated by a comma
 
-**Description:** Specify a list of modules
+        - `.../results/?technologies=($all)`
+        - `.../results/?technologies=(name1,name with space 2)`
 
-**Values:**
-Keyword `$all` or module names separated by a comma
+    - *Value Modifiers:* None
+    - *Default value:* None
 
-- `.../results/?modules=($all)`
-- `.../results/?modules=(name1,name with space 2)`
+- **snapshots**
 
-**Value Modifiers:** None
+    - *Description:* Specify a list of snapshots
 
-**Default value:** None
+    - *Values:* The input value can be one of the following:
 
----
+        - A positive or negative integer
 
-## `technologies`
+            - `.../results/?snapshots=(-1)`
+            - `.../results/?snapshots=(1)`
 
-**Description:** Specify a list of technologies
+            A negative number matches snapshots from the end (e.g. `-1` matches the last snapshot, `-2` matches the last and previous snapshots).
+            A positive number matches snapshots from the beginning (e.g. `1` matches the first snapshot, `2` matches the first and second snapshots).
 
-**Values:**
-Keyword `$all` or technology names separated by a comma
+        - The keyword `$all`
 
-- `.../results/?technologies=($all)`
-- `.../results/?technologies=(name1,name with space 2)`
+            - `.../results/?snapshots=($all)`
 
-**Value Modifiers:** None
+            This means all snapshots.
 
-**Default value:** None
+        - A snapshot date
 
----
+            - `.../results/?snapshots=(2012-10-01)`
 
-## `snapshots`
+            The date format is the standard W3C Date format: `YYYY-MM-DD`
 
-**Description:** Specify a list of snapshots
+            If there is a snapshot at this date, select this snapshot, otherwise select the oldest snapshot after this date, otherwise select the most recent snapshot before this date.
 
-**Values:**
-The input value can be one of the following:
+        - A snapshot month
 
-- A positive or negative integer
-  - `.../results/?snapshots=(-1)`
-  - `.../results/?snapshots=(1)`
+            - `.../results/?snapshots=$months(12)`
 
-  A negative number matches snapshots from the end (e.g. `-1` matches the last snapshot, `-2` matches the last and previous snapshots).
-  A positive number matches snapshots from the beginning (e.g. `1` matches the first snapshot, `2` matches the first and second snapshots).
+            Return all snapshot results within the given months from last analysis date.
 
-- The keyword `$all`
-  - `.../results/?snapshots=($all)`
+    - *Value Modifiers:* None
+    - *Default value:* `-1` (last snapshot)
 
-  This means all snapshots.
+- **snapshot-ids**
 
-- A snapshot date
-  - `.../results/?snapshots=(2012-10-01)`
+    - *Description:* Specify a list of snapshot ids
 
-  The date format is the standard W3C Date format: `YYYY-MM-DD`
+    - *Values:* The input value is a list of snapshot ids separated by commas.
 
-  If there is a snapshot at this date, select this snapshot, otherwise select the oldest snapshot after this date, otherwise select the most recent snapshot before this date.
+        - `.../results/?snapshot-ids=(5,12,3)`
 
-- A snapshot month
-  - `.../results/?snapshots=$months(12)`
+        Note: the `snapshot-ids` and `snapshots` parameters are exclusive. You cannot use both in the same request.
 
-  Return all snapshot results within the given months from last analysis date.
+    - *Value Modifiers:* None
+    - *Default value:* None
 
-**Value Modifiers:** None
+- **select**
 
-**Default value:** `-1` (last snapshot)
+    - *Description:* Specify result options to be displayed
 
----
+    - *Values:*
 
-## `snapshot-ids`
+        - `violationRatio`
 
-**Description:** Specify a list of snapshot ids
+            - `.../results?quality-indicators=(quality-rules)&select=(violationRatio)`
 
-**Values:**
-The input value is a list of snapshot ids separated by commas.
+            Must be used along with a Quality Indicator parameter specifying Quality Rules.
+            ViolationRatio can apply to applications, modules and technologies.
 
-- `.../results/?snapshot-ids=(5,12,3)`
+        - `evolutionSummary`
 
-> Note: the `snapshot-ids` and `snapshots` parameters are exclusive. You cannot use both in the same request.
+            - `.../results?quality-indicators=(business-criteria,technical-criteria,quality-rules)&select=(evolutionSummary)`
 
-**Value Modifiers:** None
+            Must be used along with a Quality Indicator parameter specifying one or more Business Criteria, Technical Criteria or Quality Rules.
+            EvolutionSummary can apply to applications, modules and technologies.
 
-**Default value:** None
+        - `categories`
 
----
+            - `.../results?quality-indicators=(quality-distributions)&select=(categories)`
 
-## `select`
+            Must be used along with a Quality Indicator parameter specifying one or more Quality Distributions.
+            Categories can apply to applications, modules and technologies.
 
-**Description:** Specify result options to be displayed
+        - `aggregators`
 
-**Values:**
+            - `.../results?sizing-measures=(c:10202)&select=aggregators`
 
-- `violationRatio`
-  - `.../results?quality-indicators=(quality-rules)&select=(violationRatio)`
+            Add gradeAggregators on each result. An aggregator is an indicator impacted by the result.
 
-  Must be used along with a Quality Indicator parameter specifying Quality Rules.
-  ViolationRatio can apply to applications, modules and technologies.
+        - `improvementGap`
 
-- `evolutionSummary`
-  - `.../results?quality-indicators=(business-criteria,technical-criteria,quality-rules)&select=(evolutionSummary)`
+            - `.../results?quality-indicators=(quality-rules)&select=(improvementGap)`
 
-  Must be used along with a Quality Indicator parameter specifying one or more Business Criteria, Technical Criteria or Quality Rules.
-  EvolutionSummary can apply to applications, modules and technologies.
+            Must be used along with a Quality Indicator parameter specifying Quality Rules.
 
-- `categories`
-  - `.../results?quality-indicators=(quality-distributions)&select=(categories)`
+        - `omgTechnicalDebt`
 
-  Must be used along with a Quality Indicator parameter specifying one or more Quality Distributions.
-  Categories can apply to applications, modules and technologies.
+            - `.../results?metrics=c:1062100&select=omgTechnicalDebt`
 
-- `aggregators`
-  - `.../results?sizing-measures=(c:10202)&select=aggregators`
+            Must be used along with a CISQ Quality Indicator (Business Criterion, Technical Criterion, or a rule).
+            See also: the com.castsoftware.cisq-index documentation
 
-  Add gradeAggregators on each result. An aggregator is an indicator impacted by the result.
+    - *Value Modifiers:* None
+    - *Default value:* None
 
-- `improvementGap`
-  - `.../results?quality-indicators=(quality-rules)&select=(improvementGap)`
+- **unselect**
 
-  Must be used along with a Quality Indicator parameter specifying Quality Rules.
+    - *Description:* Specify result options to be hidden
 
-- `omgTechnicalDebt`
-  - `.../results?metrics=c:1062100&select=omgTechnicalDebt`
+    - *Values:*
 
-  Must be used along with a CISQ Quality Indicator (Business Criterion, Technical Criterion, or a rule).
-  See also: the com.castsoftware.cisq-index documentation
+        - `grade`
 
-**Value Modifiers:** None
+            - `.../results?quality-indicators=(business-criteria)&unselect=(grade)`
 
-**Default value:** None
+            It prevents the grade parameter to be displayed for a Quality Indicator.
+            It applies to applications, modules and technologies.
 
----
+    - *Value Modifiers:* None
+    - *Default value:* None
 
-## `unselect`
+- **format**
 
-**Description:** Specify result options to be hidden
+    - *Description:* Specify output format options
 
-**Values:**
+    - *Values:*
 
-- `grade`
-  - `.../results?quality-indicators=(business-criteria)&unselect=(grade)`
+        - `snapshotsAsRows`
 
-  It prevents the grade parameter to be displayed for a Quality Indicator.
-  It applies to applications, modules and technologies.
+            - `.../results?snapshots=(-2)&format=(snapshotsAsRows)`
 
-**Value Modifiers:** None
+            For CSV and Excel output, this displays the values for different snapshots on new rows instead of new columns (default behaviour).
 
-**Default value:** None
+    - *Value Modifiers:* None
+    - *Default value:* None
 
----
+- **order**
 
-## `format`
+    - *Description:* Specify result sorting options
 
-**Description:** Specify output format options
+    - *Values:* Possible sorting parameters are:
 
-**Values:**
+        - `improvementGap`
+        - `rule-pattern-name`
+        - `rule-id`
+        - `order=(asc(param1),desc(param2))`
 
-- `snapshotsAsRows`
-  - `.../results?snapshots=(-2)&format=(snapshotsAsRows)`
+    - *Default value:* `order=(asc(rule-id))`
 
-  For CSV and Excel output, this displays the values for different snapshots on new rows instead of new columns (default behaviour).
+- **name**
 
-**Value Modifiers:** None
+    - *Description:* Technology name
 
-**Default value:** None
+    - *Values:* Correct technology name present in selected domain or application or module or snapshot
 
----
+        - `.../technology-results?name=JEE`
 
-## `order`
+    - *Value Modifiers:* None
+    - *Default value:* None
 
-**Description:** Specify result sorting options
-
-**Values:**
-Possible sorting parameters are:
-
-- `improvementGap`
-- `rule-pattern-name`
-- `rule-id`
-- `order=(asc(param1),desc(param2))`
-
-**Default value:** `order=(asc(rule-id))`
-
----
-
-## `name`
-
-**Description:** Technology name
-
-**Values:**
-Correct technology name present in selected domain or application or module or snapshot
-
-- `.../technology-results?name=JEE`
-
-**Value Modifiers:** None
-
-**Default value:** None
-
-| URI Parameter | Description | Values | Value Modifiers | Default value |
-|---|---|---|---|---|
-| quality-indicators | Specify a list of quality indicators | Quality Indicators identifiers or keywords, separated by a comma. <br/>Ex: `.../results/?quality-indicators=(business-criteria)`, `.../results/?quality-indicators=(technical-criteria)`, `.../results/?quality-indicators=(quality-rules)`, `.../results/?quality-indicators=(quality-distributions)`, `.../results/?quality-indicators=(quality-measures)` | Use `c:` modifier to specify direct grade contributors of a Quality Indicator or a Quality Standard reference (aka tag). <br/>Ex: `c:61027`, `c:CISQ`. Use `cc:` modifier to specify critical grade contributors. <br/>Ex: `cc:61027`. Use `nc:` modifier to specify non-critical grade contributors. <br/>Ex: `nc:61027` | 60017 (Total Quality Index) is used if quality-indicators, sizing-measures and background-facts parameters are not set |
-| quality-standards | Specify a list of quality standards references | Quality Standards references, separated by a comma. <br/>Ex: `.../results/?quality-standards=(CISQ,CISQ-Maintainability)` | Must be requested with the option in URL: `select=(evolutionSummary)` to retrieve the counts of violations | None |
-| sizing-measures | Specify a list of sizing measures | Sizing measures identifiers or keywords, separated by a comma. <br/>Ex: `.../results/?sizing-measures=(technical-size-measures)`, `.../results/?sizing-measures=(functional-weight-measures)`, `.../results/?sizing-measures=(critical-violation-statistics)`, `.../results/?sizing-measures=(violation-statistics)`, `.../results/?sizing-measures=(technical-debt-statistics)`, `.../results/?sizing-measures=(run-time-statistics)` | None | None |
-| background-facts | Specify a list of background facts | Background Facts identifiers, separated by a comma. <br/>Ex: `.../results/?background-facts=(66061)` | None | None |
-| metrics | Specify a list of metrics | Any metric identifier (quality-indicator, sizing-measure or background-fact) or keyword, separated by a comma | `c:`, `cc:`, `nc:` | 60017 |
-| applications | Specify a list of applications | Keyword `$all` or application names separated by a comma. <br/>Ex: `.../results/?applications=($all)`, `.../results/?applications=(name1,name with space 2)` | None | `$all` (all applications) |
-| modules | Specify a list of modules | Keyword `$all` or module names separated by a comma. <br/>Ex: `.../results/?modules=($all)`, `.../results/?modules=(name1,name with space 2)` | None | None |
-| technologies | Specify a list of technologies | Keyword `$all` or technology names separated by a comma. <br/>Ex: `.../results/?technologies=($all)`, `.../results/?technologies=(name1,name with space 2)` | None | None |
-| snapshots | Specify a list of snapshots | A positive or negative integer (<br/>Ex: `.../results/?snapshots=(-1)`); the keyword `$all`; a snapshot date (<br/>Ex: `.../results/?snapshots=(2012-10-01)`); or snapshot month (<br/>Ex: `.../results/?snapshots=$months(12)`). A negative number matches snapshots from the end (-1 = last, -2 = last and previous). A positive number matches from the beginning (1 = first, 2 = first and second). | None | -1 (last snapshot) |
-| snapshot-ids | Specify a list of snapshot ids | A list of snapshot ids separated by commas. <br/>Ex: `.../results/?snapshot-ids=(5,12,3)`. NB: `snapshot-ids` and `snapshots` parameters are exclusive. | None | None |
-| select | Specify result options to be displayed | `violationRatio`, `evolutionSummary`, `categories`, `aggregators`, `improvementGap`, `omgTechnicalDebt` | None | None |
-| unselect | Specify result options to be hidden | `grade` — prevents the grade parameter from being displayed for a Quality Indicator | None | None |
-| format | Specify output format options | `snapshotsAsRows` — for CSV and Excel output, displays values for different snapshots on new rows instead of new columns | None | None |
-| order | Specify result sorting options | `improvementGap`, `rule-pattern-name`, `rule-id` | `order=(asc(param1),desc(param2))` | `order=(asc(rule-id))` |
-| name | Technology name | Correct technology name present in selected domain or application or module or snapshot. <br/>Ex: `.../technology-results?name=JEE` | None | None |
 
 ### Excel/CSV Representation (Output)
 
