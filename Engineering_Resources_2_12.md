@@ -1722,26 +1722,87 @@ This allows to filter violations with parameters, using a dedicated Lucene index
 
 See Violation Excel/CSV Representation.
 
-### Violations Summary
+## Violations Summary
 
-This represents the counts of total, added, updated or unchanged violations.
+### URI Templates 
 
-| HTTP Action | Media Type | URI Templates | Description |
-|---|---|---|---|
-| GET | application/json | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/violations-summary{?Parameters}` | Violations Summary for this application snapshot |
-| GET | application/json | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/removed-violations-summary{?Parameters}` | Removed Violations Summary for this application snapshot |
-| GET | application/json | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/architecture-models/{ModelID}/violations-summary{?Parameters}` | Violations Summary for this application snapshot and architecture model |
-| GET | application/json | `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/violations-summary{?Parameters}` | Violations Summary for this module snapshot |
-| GET | application/json | `{Domain}/tree-nodes/{Level}-{LowerID}-{UpperID}/snapshots/{SnapshotID}/violations-summary{?Parameters}` | Violations Summary for this treenode snapshot |
-| GET | application/json | `{Domain}/transactions/{TransactionID}/snapshots/{SnapshotID}/violations-summary{?Parameters}` | Violations Summary for this transaction snapshot |
+- **GET** `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/violations-summary{?Parameters}`
 
-**Parameters**
+  - *Description*: Violations Summary for this application snapshot
 
-| URI Parameter | Description | Values | Default value |
-|---|---|---|---|
-| rule-pattern | A rule pattern ID | an integer or a string | None (Mandatory parameter) |
-| technologies | A technology name to filter violations on. Available for ApplicationSnapshot and ModuleSnapshot only | String | none |
-| status | A violation status to filter violations on: `added`, `updated`, `unchanged`. If not specified, response contains total count. If the corresponding status is not requested in the URL, the response contains `"xxxViolations": null`. | String | none |
+  - *Media Type*: `application/json`
+
+- **GET** `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/removed-violations-summary{?Parameters}`
+
+  - *Description*: Removed Violations Summary for this application snapshot
+  
+  - *Media Type*: `application/json`
+
+- **GET** `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/architecture-models/{ModelID}/violations-summary{?Parameters}` 
+
+  - *Description*: Violations Summary for this application snapshot and architecture model
+  
+  - *Media Type*: `application/json`
+
+- **GET** `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/violations-summary{?Parameters}` 
+
+  - *Description*: Violations Summary for this module snapshot
+  
+  - *Media Type*: `application/json`
+
+- **GET** `{Domain}/tree-nodes/{Level}-{LowerID}-{UpperID}/snapshots/{SnapshotID}/violations-summary{?Parameters}`  
+
+  - *Description*: Violations Summary for this treenode snapshot
+  
+  - *Media Type*: `application/json`
+
+- **GET** `{Domain}/transactions/{TransactionID}/snapshots/{SnapshotID}/violations-summary{?Parameters}`  
+
+  - *Description*: Violations Summary for this transaction snapshot
+  
+  - *Media Type*: `application/json`
+  
+
+### URI Parameters
+
+- **rule-pattern**
+
+    - *Description:* A rule pattern ID
+
+    - *Values:* an integer or a string
+       
+    - *Default Value*: None (Mandatory parameter)
+
+- **technologies**
+
+    - *Description:* A rule pattern ID
+    
+      A technology name to filter violations on
+
+      This parameter is available for ApplicationSnapshot violations and ModuleSnapshot violations only
+
+    - *Values:* a string
+
+    - *Default Value*: None
+
+- **status**
+
+    - *Description:* A rule pattern ID
+    
+        A violation status to filter violations on
+
+        ```status``` can have one of the following values: ```added```, ```updated```, ```unchanged```
+
+        If you want to get the total count of violations (corresponding to "status=all"), simply do not mention any status in the URL.
+
+        If the corresponding "status" has not been requested in the URL, then the response contains
+        ```"xxxViolations": null```
+        instead of
+        ```"xxxViolations": { "number": N }```
+
+    - *Values:* a string
+
+    - *Default Value*: None
 
 ### JSON Representation
 
@@ -1835,7 +1896,7 @@ This represents the counts of total, added, updated or unchanged violations.
 | exposure | The Exposure of an Occurrence is qualification information that measures the level of connectedness of the Occurrence with the rest of the software, both directly and indirectly through call paths. | Integer | 1 |
 | concentration | Concentration is qualification information that measures the number of Occurrences within any Code Element in the software. | Integer | 1 |
 | technologicalDiversity | The Technological Diversity of an Occurrence is qualification information that measures the number of distinct programming languages in which the code elements included in a single occurrence are written. | Integer | 1 |
-| gapSize | The extent of the gap between values and thresholds, measured as the difference between the values and the thresholds. | Integer | 1 |
+| gapSize | In the context of patterns which rely on roles that model values and threshold values that are not to be exceeded, the gap between these values must be closed to remediate this weakness; the Occurrence Gap Size is the extent of the gap, measured as the difference between the values and the thresholds. | Integer | 1 |
 | unadjustedEffort | Remediation effort as a digest of the complexity, exposure, concentration, technological diversity, gap size and the number of occurrences | Integer | 1 |
 | added | Technical Debt of added occurrences | Integer | 1 |
 | removed | Technical Debt of removed occurrences | Integer | 1 |
@@ -1856,7 +1917,7 @@ This represents the counts of total, added, updated or unchanged violations.
 | Properties | Description | Type | Occurs |
 |---|---|---|---|
 | name | Name of findings items. If values is empty then no name is set. Name may be "null" if diagnosis of the rule pattern does not set any name. | String | 1 |
-| type | Type of an item of 'values': **integer** (an integer, typically a threshold exceeded), **object** (wrapper of a component), **path** (execution path — array of wrappers of code fragment), **group** (array of wrappers of components), **percentage** (decimal number 0–100), **text** (string), **null** (no value) | String | 1 |
+| type | Type of an item of 'values':<br/>**integer** (an integer, typically a threshold exceeded),<br/>**object** (wrapper of a component),<br/>**path** (execution path — array of wrappers of code fragment),<br/>**group** (array of wrappers of components),<br/>**percentage** (decimal number 0–100),<br/>**text** (string),<br/>**null** (no value) | String | 1 |
 | values | An array of findings items | Array | 0..1 |
 | values[] | An item (see type). For type "integer" and "percentage", this array contains a single value. | Any | 1..* |
 | bookmarks | An array of array of bookmarks. This data is set only for the last snapshot of this application | Array | 0..1 |
@@ -1921,7 +1982,7 @@ This represents the counts of total, added, updated or unchanged violations.
 }
 ```
 
-**Integer type** (sizing value without bookmarks)
+**Integer type** (sizing value with or without bookmarks)
 
 ```json
 {
@@ -1988,6 +2049,10 @@ This represents the counts of total, added, updated or unchanged violations.
 
 **Path type** (data-flow diagnosis)
 
+Values is a list of execution steps (case of a data-flow diagnosis)
+- Ex: 7954: Avoid indirect String concatenation inside loops
+- Ex: 7150: Favor PreparedStatement or CallableStatement over Statement (Note: 7150 is a contributor of "66062: Secure Coding - Input Validation")
+
 ```json
 {
   "name": null,
@@ -2003,6 +2068,50 @@ This represents the counts of total, added, updated or unchanged violations.
     ]
   ],
   "bookmarks": null
+}
+```
+
+**Group type**
+
+Specific case for "7156: Avoid Too Many Copy Pasted Artifacts"
+
+```json
+{
+  "name": null,
+  "type": "group",
+  "values": [
+    [
+      { "component": { ... } },
+      { "component": { ... } }
+    ],
+    [
+      { "component": { ... } },
+      { "component": { ... } }
+    ]
+  ],
+  "bookmarks": null
+}
+```
+
+**No value type**
+
+Values is empty, but bookmarks are set.
+
+```json
+{
+  "name": null,
+  "type": null,
+  "values": [],
+  "bookmarks": [
+    [
+      { "component": { "name": "...", "sourceCodes": {...} }, "codeFragment": {...} },
+      { "component": { "name": "...", "sourceCodes": {...} }, "codeFragment": {...} }
+    ],
+    [
+      { "component": { "name": "...", "sourceCodes": {...} }, "codeFragment": {...} },
+      { "component": { "name": "...", "sourceCodes": {...} }, "codeFragment": {...} }
+    ]
+  ]
 }
 ```
 
