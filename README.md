@@ -9,7 +9,8 @@ User Session Services_2.11.md
 
 --
 
-Each markdown file has been converted from a HTML page edited with Confluence.
+Each markdown file has been converted from a HTML page edited with Confluence
+see [https://doc.castsoftware.com/export/DASHBOARDS/REST+API+Reference+Documentation+-+2.12](https://doc.castsoftware.com/export/DASHBOARDS/REST+API+Reference+Documentation+-+2.12)
 
 ### Some styling and formatting rules.
 
