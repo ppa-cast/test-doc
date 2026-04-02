@@ -1192,7 +1192,7 @@ An issue represents a remedial action for a rule pattern and a component in a co
 |---|---|---|---|
 | Action plan priority | Remediation priority: `extreme`, `high`, `moderate`, `low` | String | 1 |
 | Action plan tag | A general text intended to replace priority | String | 1 |
-| Action plan status | **"added"**: issue requested at this snapshot date; **"pending"**: issue prior to this snapshot still to solve; **"solved"**: issue has been corrected | String | 1 |
+| Action plan status | This property is set only in the scope of an  issue or a  violation.<br/>This property is computed with internal dates properties compared to the current snapshot date:<br/><br/>"added": A remedial action has been requested at this violation snapshot date, because this violation has been identified as an issue <br/>"pending": A remedial action has been requested prior to this violation snapshot date; this violation is still an issue to solve, it has not been corrected for this snapshot<br/>"solved": This violation has been solved and does no longer exist in this snapshot  | String | 1 |
 | Action plan comment | Remedial action comment | String | 1 |
 | Quality rule name | Rule pattern name | String | 1 |
 | Object name location | Full name of the defective component | String | 1 |
