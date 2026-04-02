@@ -54,8 +54,8 @@
 | Issue | An issue reports a remedial action in a context of an application snapshot. Component and quality rule pattern match either a violation that should have been addressed in previous snapshots, or that will have to be addressed before next snapshot. |
 | Remedial Action | A remedial action describes a user input request to correct a component regarding a quality rule-pattern. |
 | Transaction | A set of components involved in a transaction processing |
-| Tree Node | Hierarchy relation of a component. This hierarchy relation depends on the programming language. For example, a node for a "Java Package" component, will be parent node of "Java Class" nodes. **WARNING: a component may be reached from several tree nodes** |
-| Violation | A violation identifies a defective component breaking a quality rule pattern. **IMPORTANT: For a given component and a given quality rule pattern there is 0 or 1 violation. If a component breaks a rule N times, then each occurrence is detailed into diagnosis findings structure with a value counter equals to N, and/or with N values, and/or with N code bookmarks.** A critical violation is a violation of a quality rule identified as critical regarding a technical criterion or a business criterion. Risk assessment is based on defective components number compared to observable components number. |
+| Tree Node | Hierarchy relation of a component. This hierarchy relation depends on the programming language. For example, a node for a "Java Package" component, will be parent node of "Java Class" nodes.<br/>**WARNING: a component may be reached from several tree nodes** |
+| Violation | A violation identifies a defective component breaking a quality rule pattern.<br/>**IMPORTANT: For a given component and a given quality rule pattern there is 0 or 1 violation. If a component breaks a rule N times, then each occurrence is detailed into diagnosis findings structure with a value counter equals to N, and/or with N values, and/or with N code bookmarks.**<br/>A critical violation is a violation of a quality rule identified as critical regarding a technical criterion or a business criterion.<br/>Risk assessment is based on defective components number compared to observable components number. |
 
 ---
 
@@ -332,6 +332,57 @@
     "href": "CASTONCAST/tree-nodes/3-63888-63923/snapshots/2/ancestors",
     "name": "Ancestors"
   }
+}
+```
+
+```
+{
+   "href":"ENDTOEND83/tree-nodes/4-3231-3234/snapshots/16",
+   "name":"ListTitles.jsp",
+   "component":{
+      "href":"ENDTOEND83/components/36382/snapshots/16",
+      "name":"[c:\\jenkins6_slave\\workspace\\CAIP_Trunk_TestE2E_CSS_ADG\\Work\\CAST\\Deploy\\Jurassic Park\\JSPBookDemo\\ListTitles.jsp]",
+      "shortName":"ListTitles.jsp",
+      "type":{
+         "label":"eFile",
+         "name":"CAST_Web_File"
+      },
+      "sourceCodes":{
+         "href":"ENDTOEND83/components/36382/snapshots/16/source-codes",
+         "name":"Source Codes"
+      },
+      "treeNodes":{
+         "href":"ENDTOEND83/components/36382/snapshots/16/tree-nodes",
+         "name":"Tree Nodes"
+      },
+      "codeLines":81,
+      "commentedCodeLines":null,
+      "commentLines":0,
+      "coupling":1,
+      "fanIn":1,
+      "fanOut":17,
+      "cyclomaticComplexity":4,
+      "ratioCommentLinesCodeLines":0,
+      "halsteadProgramLength":126,
+      "halsteadProgramVocabulary":40,
+      "halsteadVolume":464.798811218356,
+      "distinctOperators":12,
+      "distinctOperands":28,
+      "integrationComplexity":4,
+      "essentialComplexity":1
+   },
+   "defectsSummary":{
+      "href":"ENDTOEND83/tree-nodes/4-3231-3234/snapshots/16/defects-summary",
+      "name":"Defects"
+   },
+   "children":{
+      "href":"ENDTOEND83/tree-nodes/4-3231-3234/snapshots/16/children",
+      "name":"Children"
+   },
+   "ancestors":{
+      "href":"ENDTOEND83/tree-nodes/4-3231-3234/snapshots/16/ancestors",
+      "name":"Ancestors"
+   }
 }
 ```
 
