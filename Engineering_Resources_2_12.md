@@ -2010,13 +2010,75 @@ This represents the counts of total, added, updated or unchanged violations.
 
 ## Search Results
 
-> **Note:** This section covers search result resources. Please refer to the official documentation for full details on the Search Results API, including the `mode` parameter used in Indexed Violations.
+This allows to search for components and violations using a full-text search index.
+
+### URI Templates 
+
+| HTTP Action | Media Type | URI Templates | Description |
+| --- | --- | --- | --- |
+| GET | application/json | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/search-results{?Parameters}` | Array of search results for this application snapshot |
+
+### URI Parameters 
+
+| URI Parameter | Description | Values | Default value |
+| --- | --- | --- | --- |
+| startRow | Specify first item | an integer | 1 |
+| nbRows | Specify max number of items to return | an integer | 10 |
+| mode | Search mode | `components` or `violations` | `components` |
+| object-fullname | A string to search in a component's name | a string | none |
+| rule-pattern | See Indexed Violation `rule-pattern` | a combination of integers and strings | All quality rules |
+| technologies | A technology name to filter results | String | none |
+| status | A violation status to filter results | String | none |
+
+### JSON Representation
+
+| Properties | Description | Type | Occurs |
+| --- | --- | --- | --- |
+| number | Total number of results matching the filter | Integer | 1 |
+| components | Filtered components (when `mode=components`) | Array of Component Snapshots | 0..1 |
+| violations | Filtered violations (when `mode=violations`) | Array of Violations | 0..1 |
 
 ---
 
 ## List of extensions
 
-> **Note:** This section covers the list of installed extensions. Please refer to the official documentation for full details.
+### URI Templates 
+
+| HTTP Action | Media Type | URI Templates | Description |
+| --- | --- | --- | --- |
+| GET | application/json | `{Domain}/extensions` | List of extensions that are installed on Application |
+
+
+### JSON example
+
+```json
+[
+	{
+		"name": "/com.castsoftware.omg-ascqm-index",
+		"version": "20200602.0.0-funcrel"
+	},
+	{
+		"name": "/com.castsoftware.asp",
+		"version": "1.0.0"
+	},
+	{
+		"name": "/com.castsoftware.angularjs",
+		"version": "2.0.12-funcrel"
+	},
+	{
+		"name": "/com.castsoftware.jquery",
+		"version": "2.2.0-funcrel"
+	},
+	{
+		"name": "/com.castsoftware.mips-redux-index",
+		"version": "20200602.0.0-funcrel"
+	},
+	{
+		"name": "/com.castsoftware.nodejs",
+		"version": "2.3.0-beta3"
+	}
+]
+```
 
 ---
 
