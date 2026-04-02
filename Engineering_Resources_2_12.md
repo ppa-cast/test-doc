@@ -2010,34 +2010,59 @@ This represents the counts of total, added, updated or unchanged violations.
 
 ## Search Results
 
-This allows to search for components and violations using a full-text search index.
+Search results are items indexed by Lucene. As the construction of these indexes is still optional, we deliver these feature in a separate URI.
 
 ### URI Templates 
 
 | HTTP Action | Media Type | URI Templates | Description |
 | --- | --- | --- | --- |
-| GET | application/json | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/search-results{?Parameters}` | Array of search results for this application snapshot |
+| GET | application/json | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/search-results{?Parameters}` | Search results on this application snapshot |
 
 ### URI Parameters 
 
 | URI Parameter | Description | Values | Default value |
 | --- | --- | --- | --- |
+| items | Type of items to search on | "components" | none |
+| mode | Search mode<br/>"prefix" retrieves objects starting with "word"<br/>"term" retrieves objects containing "word" | "prefix" or "term" | none |
+| word | The word to search | a string | none |
 | startRow | Specify first item | an integer | 1 |
 | nbRows | Specify max number of items to return | an integer | 10 |
-| mode | Search mode | `components` or `violations` | `components` |
-| object-fullname | A string to search in a component's name | a string | none |
-| rule-pattern | See Indexed Violation `rule-pattern` | a combination of integers and strings | All quality rules |
-| technologies | A technology name to filter results | String | none |
-| status | A violation status to filter results | String | none |
 
 ### JSON Representation
 
 | Properties | Description | Type | Occurs |
 | --- | --- | --- | --- |
 | number | Total number of results matching the filter | Integer | 1 |
-| components | Filtered components (when `mode=components`) | Array of Component Snapshots | 0..1 |
-| violations | Filtered violations (when `mode=violations`) | Array of Violations | 0..1 |
+| components | Search results, ordered by alphabetical order (case-unsensitive) and object_id | Structure | 0..* |
 
+### JSON Example
+
+```json
+{
+   "number":7277,
+   "components":[
+      {
+         "id":284004,
+         "name":"[S:\\CAIP\\JAVA\\Applications\\Dashboard\\adg\\adg-war\\src\\main\\webapp\\javascript\\isomorphic\\system\\modules\\ISC_Core.js].$be",
+         "shortName":"$be",
+         "type":{
+            "label":"Javascript Client Side Method",
+            "name":"CAST_Javascript_ClientSide_Method"
+         }
+      },
+      {
+         "id":290125,
+         "name":"[S:\\CAIP\\JAVA\\Applications\\Dashboard\\adg\\adg-war\\src\\main\\webapp\\javascript\\isomorphic\\system\\development\\ISC_Core.js].$be",
+         "shortName":"$be",
+         "type":{
+            "label":"Javascript Client Side Method",
+            "name":"CAST_Javascript_ClientSide_Method"
+         }
+      },
+      ...
+   }
+}
+```   
 ---
 
 ## List of extensions
