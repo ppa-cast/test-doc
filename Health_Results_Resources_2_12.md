@@ -59,7 +59,7 @@
 
 ### URI Templates 
 
-- **GET**  `{Domain}/results{?parameters}`
+- **GET** `{Domain}/results{?parameters}`
 
   - *Description*:
 
@@ -70,7 +70,7 @@
     - `text/csv`
     - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
 
-- **PUT**  `{Domain}/results{?parameters}`
+- **PUT** `{Domain}/results{?parameters}`
 
   - *Description*:
 
@@ -79,7 +79,7 @@
   - *Media Type*:
     - `text/csv`
 
-- **GET**  `{Domain}/applications/{ApplicationID}/results{?parameters}`
+- **GET** `{Domain}/applications/{ApplicationID}/results{?parameters}`
 
   - *Description*:
 
@@ -90,7 +90,7 @@
     - `text/csv`
     - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
 
-- **GET**  `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/results{?parameters}`
+- **GET** `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/results{?parameters}`
 
   - *Description*:
 
@@ -101,7 +101,7 @@
     - `text/csv`
     - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
 
-- **PUT**  `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/results{?parameters}`
+- **PUT** `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/results{?parameters}`
 
   - *Description*:
 
@@ -110,7 +110,7 @@
   - *Media Type*:
     - `text/csv`
 
-- **GET**  `{Domain}/modules/{ModuleID}/results{?parameters}`
+- **GET** `{Domain}/modules/{ModuleID}/results{?parameters}`
 
   - *Description*:
 
@@ -121,7 +121,7 @@
     - `text/csv`
     - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
 
-- **GET**  `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/results{?parameters}`
+- **GET** `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/results{?parameters}`
 
   - *Description*:
 
@@ -132,7 +132,7 @@
     - `text/csv`
     - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
 
-- **GET**  `{Domain}/transactions/{TransactionID}/results{?parameters}`
+- **GET** `{Domain}/transactions/{TransactionID}/results{?parameters}`
 
   - *Description*:
 
@@ -141,7 +141,7 @@
   - *Media Type*:
     - `application/json`
 
-- **GET**  `{Domain}/technologies-results{?parameters}`
+- **GET** `{Domain}/technologies-results{?parameters}`
 
   - *Description*:
 
@@ -152,7 +152,7 @@
     - `text/csv`
     - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
 
-- **GET**  `{Domain}/applications/{ApplicationID}/technologies-results{?parameters}`
+- **GET** `{Domain}/applications/{ApplicationID}/technologies-results{?parameters}`
 
   - *Description*:
 
@@ -163,7 +163,7 @@
     - `text/csv`
     - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
 
-- **GET**  `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/technologies-results{?parameters}`
+- **GET** `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/technologies-results{?parameters}`
 
   - *Description*:
 
@@ -174,7 +174,7 @@
     - `text/csv`
     - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
 
-- **GET**  `{Domain}/modules/{ModuleID}/technologies-results{?parameters}`
+- **GET** `{Domain}/modules/{ModuleID}/technologies-results{?parameters}`
 
   - *Description*:
 
@@ -185,7 +185,7 @@
     - `text/csv`
     - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
 
-- **GET**  `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/technologies-results{?parameters}`
+- **GET** `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/technologies-results{?parameters}`
 
   - *Description*:
 

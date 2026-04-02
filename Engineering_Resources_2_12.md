@@ -634,7 +634,7 @@
 
     - *Default value:* None
 
-#### Additional parameters for `{HealthFactorID}` URLs
+#### Additional parameters for `{HealthFactorID}` URIs
 
 - **properties**
 
@@ -642,21 +642,21 @@
         List of component properties which should be non-null to filter the components. e.g. `properties=(cyclomaticComplexity,fanOut)`.
         
         Available properties: 
-            - `codeLines`, 
-            - `commentedCodeLines`, 
-            - `commentLines`, 
-            - `coupling`, 
-            - `fanIn`, 
-            - `fanOut`, 
-            - `cyclomaticComplexity`, 
-            - `ratioCommentLinesCodeLines`, 
-            - `halsteadProgramLength`, 
-            - `halsteadProgramVocabulary`, 
-            - `halsteadVolume`, 
-            - `distinctOperators`, 
-            - `distinctOperands`, 
-            - `integrationComplexity`, 
-            - `essentialComplexity`. 
+        - `codeLines`, 
+        - `commentedCodeLines`, 
+        - `commentLines`, 
+        - `coupling`, 
+        - `fanIn`, 
+        - `fanOut`, 
+        - `cyclomaticComplexity`, 
+        - `ratioCommentLinesCodeLines`, 
+        - `halsteadProgramLength`, 
+        - `halsteadProgramVocabulary`, 
+        - `halsteadVolume`, 
+        - `distinctOperators`, 
+        - `distinctOperands`, 
+        - `integrationComplexity`, 
+        - `essentialComplexity`. 
             
         Their values are known only for the last snapshot.
         
@@ -668,19 +668,21 @@
 
     - *Description:* 
         
+        See Indexed Violation order
+        
         By default, components are ordered by PRI desc (if any), component full name asc, component id asc.
 
         The sortable columns are all the above properties, plus: 
-            - `pri`, 
-            - `component-name`, 
-            - `component-id`
+        - `pri`, 
+        - `component-name`, 
+        - `component-id`
         
     - *Values: a list of sort orders 
 
     - *Default value:* None
     
 
-#### Only parameters applicable to Cost Complexity (`65005`) URLs
+#### Only parameters applicable to Cost Complexity (`65005`) URIs
 
 - **snapshot-ids**
 
@@ -763,6 +765,57 @@
 }
 ```
 
+```json
+{
+   "href":"ENDTOEND83/components/34364/snapshots/16",
+   "name":"WASecurityForm._Default.GetRawInputGet",
+   "shortName":"GetRawInputGet",
+   "type":{
+      "label":"C# Method",
+      "name":"CAST_DotNet_MethodCSharp"
+   },
+   "treeNodes":{
+      "href":"ENDTOEND83/components/34364/snapshots/16/tree-nodes",
+      "name":"Tree Nodes"
+   },
+   "codeLines":1,
+   "commentedCodeLines":null,
+   "commentLines":0,
+   "coupling":3,
+   "fanIn":2,
+   "fanOut":3,
+   "cyclomaticComplexity":1,
+   "ratioCommentLinesCodeLines":0,
+   "halsteadProgramLength":8,
+   "halsteadProgramVocabulary":8,
+   "halsteadVolume":16.635532333438686,
+   "distinctOperators":5,
+   "distinctOperands":3,
+   "integrationComplexity":1,
+   "essentialComplexity":1
+}
+```
+
+```json
+[
+   {
+      "href":"ENDTOEND84/components/16879/snapshots/15",
+      "name":"Pchit.Builder.AddListToList",
+      "shortName":"AddListToList",
+      "nbOfUpdates":1,
+      "complexity":"moderate risk",
+      "sqlComplexity":"low risk",
+      "granularity":"moderate risk",
+      "lackOfComments":"moderate risk",
+      "coupling":"low risk",
+      "treeNodes":{
+         "href":"ENDTOEND84/components/16879/snapshots/15/tree-nodes",
+         "name":"Tree Nodes"
+      }
+   },
+]
+```
+   
 ---
 
 ## Code Fragment
@@ -779,7 +832,7 @@
 | startLine | start line of code fragment | Integer | 1 |
 | startColumn | start column of code fragment. Note: column number may be set to null in some cases, for example for a diagnosis findings of type "path" | Integer | 1 |
 | endLine | end line of code fragment | Integer | 1 |
-| endColumn | end column of code fragment. Note: column number may be set to null in some cases. Note 2: this value is exclusive — code fragment ends at column (endColumn-1). This convention allows to locate a point in the text. | Integer | 1 |
+| endColumn | end column of code fragment.<br/>Note: column number may be set to null in some cases.<br/>Note 2: this value is exclusive — code fragment ends at column (endColumn-1). This convention allows to locate a point in the text. | Integer | 1 |
 
 ### JSON Example
 
@@ -880,7 +933,7 @@ A raw text.
 
 | Properties | Description | Type | Occurs |
 |---|---|---|---|
-| status | This property is set only in the scope of an issue or a violation. Computed with internal dates compared to the current snapshot date: **"added"**: A remedial action has been requested at this violation snapshot date; **"pending"**: A remedial action has been requested prior to this snapshot, violation is still an issue; **"solved"**: This violation has been solved and does no longer exist in this snapshot | String | 1 |
+| status | This property is set only in the scope of an issue or a violation.<br/>Computed with internal dates compared to the current snapshot date:<br/>**"added"**: A remedial action has been requested at this violation snapshot date;<br/>**"pending"**: A remedial action has been requested prior to this snapshot, violation is still an issue;<br/>**"solved"**: This violation has been solved and does no longer exist in this snapshot | String | 1 |
 | dates.updated | Date of last change of this remedial action | Date | 1 |
 | dates.solved | Date when action plan violation solved | Date | 0..1 |
 | comment | A short comment provided by the requester who added manually a remedial action. End of lines are represented with characters `\r\n` | String | 1 |
@@ -903,39 +956,204 @@ A raw text.
 
 An issue represents a remedial action for a rule pattern and a component in a context of an application snapshot.
 
-### URI Templates & Parameters
+### URI Templates
 
-| HTTP Action | Media Type | URI Templates | Description |
-|---|---|---|---|
-| GET | application/json | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/action-plan/issues/{?Parameters}` | Array of issues applicable until this application snapshot. "status" property of remedial action indicates the violation status regarding this action. |
-| GET | application/json | `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/action-plan/issues/{?Parameters}` | Array of issues applicable until this module snapshot. |
-| POST | application/json | `{Domain}/applications/{ApplicationID}/action-plan/issues` | Create a set of issues from last application snapshot. Users MUST have `QUALITY_MANAGER` Role. |
-| PUT | application/json | `{Domain}/applications/{ApplicationID}/action-plan/issues` | Update a set of issues opened in last application snapshot. Users MUST have `QUALITY_MANAGER` Role. |
-| DELETE | application/json | `{Domain}/applications/{ApplicationID}/action-plan/issues` | Remove a set of issues. Users MUST have `QUALITY_MANAGER` Role. |
+- **GET** `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/action-plan/issues/{?Parameters}`
 
-**POST/PUT Payload structure:**
+  - *Description*:
 
-```json
-[
-  {
-    "component": { "href": "D/components/C/snapshots/S" },
-    "rulePattern": { "href": "D/rule-patterns/M" },
-    "remedialAction": { "comment": "comment text", "tag": "mytag" }
-  }
-]
-```
+    Array of issues applicable until this application snapshot. "status" property of remedial action indicates the violation status regarding this action.
 
-**Parameters**
+  - *Media Type*:
+    - `application/json`
 
-| URI Parameter | Description | Values | Default value |
-|---|---|---|---|
-| startRow | Specify first item (for JSON format only) | an integer | 1 |
-| nbRows | Specify max number of items to return (for JSON format only) | an integer | 10 |
-| rule-pattern | Filter the issues following the specified quality rules | a combination of integers and strings, e.g. `rule-pattern=(7156,8294)` | All quality rules |
-| status | Filter the issues following the specified statuses. Possible values: `added`, `pending`, `solved` | e.g. `status=(added,pending)` | All statuses |
-| tag | Filter the issues following the specified tags | e.g. `tag=(low,high)` | All tags |
-| comment | Filter the issues following the specified comment | e.g. `comment=(test)` | All comments |
-| object-fullname | Filter the issues following the specified object full name (contains) | a string | All object full names |
+- **GET** `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/action-plan/issues/{?Parameters}`
+
+  - *Description*:
+
+    Array of issues applicable until this module snapshot. "status" property if remedial action indicates the violation status regarding this action.
+    
+  - *Media Type*:
+    - `application/json`
+
+
+- **POST** `{Domain}/applications/{ApplicationID}/action-plan/issues`
+
+  - *Description*:
+
+    Create a set of issues from last application snapshot. 
+
+    Users MUST have QUALITY_MANAGER Role and MUST be granted to access to the related application
+
+    🛈 Payload is a collection of triplets: component, rule-pattern, and remedial action.
+
+    ```json
+    [{ "component": { "href": "D/components/C/snapshots/S" },
+       "rulePattern": { "href": "D/rule-patterns/M" },
+       "remedialAction": { "comment": "blablabla", "tag": "mytag" } }, ... ]
+    ```
+
+    🛈 For compatibility considerations with earlier versions, the following format is still accepted:
+
+    "remedialAction": { "comment": "blablabla", "priority": "high" } }
+
+    🛈 No active action must be already defined on the same component and the same rule pattern
+
+    🛈 Remedial actions are created with last application snapshot date as internal 'start date'    
+
+  - *Media Type*:
+    - `application/json`
+    
+  - *Example of Payload*:
+    ```json
+    [
+      {
+        "component": { "href": "D/components/C/snapshots/S" },
+        "rulePattern": { "href": "D/rule-patterns/M" },
+        "remedialAction": { "comment": "comment text", "tag": "mytag" }
+      }
+    ]
+    ```
+    
+- **PUT** `{Domain}/applications/{ApplicationID}/action-plan/issues`
+
+  - *Description*:
+
+    Update a set of issues opened in last application snapshot for a rule pattern
+
+    Users MUST have QUALITY_MANAGER Role and MUST be granted to access to the related application
+
+    (info) Payload is a collection of triplets: component, rule-pattern, and remedial action.
+
+    ```json    
+    [{ "component": { "href": "D/components/C/snapshots/S" },
+       "rulePattern": { "href": "D/rule-patterns/M" },
+       "remedialAction": { "comment": "blablabla", "tag": "mytag" } }, ... ]
+    ```
+
+    🛈 For compatibility considerations with earlier versions, the following format is still accepted:
+
+    ```json
+    "remedialAction": { "comment": "blablabla", "priority": "high" } }
+    ```
+
+    🛈 Related component must belong to the last application snapshot
+
+    🛈 Remedial action must be active (i.e. not deleted with internal 'last date').
+
+  - *Media Type*:
+    - `application/json`
+
+  - *Example of Payload*:
+    ```json
+    [
+      {
+        "component": { "href": "D/components/C/snapshots/S" },
+        "rulePattern": { "href": "D/rule-patterns/M" },
+        "remedialAction": { "comment": "comment text", "tag": "mytag" }
+      }
+    ]
+    ```
+
+- **DELETE** `{Domain}/applications/{ApplicationID}/action-plan/issues`
+
+  - *Description*:
+
+    Remove a set of issues opened in last application snapshot for a rule pattern
+
+    Users MUST have QUALITY_MANAGER Role and MUST be granted to access to the related application
+
+    🛈 Payload is a collection of issues, with rule-pattern href and component href:
+
+    ```json
+    [ { component: { "href": ....}, rulePattern: { "href": .... } }, ... ]
+    ```
+
+    🛈 Related component must belong to the last application snapshot
+
+    🛈 Remedial actions must be active (i.e. internal 'end date' property not set).
+
+  - *Media Type*:
+    - `application/json`
+    
+
+### URI Parameters
+
+- **startRow**
+
+    - *Description:* Specify first item 
+
+    - *Values:* an integer
+
+    - *Default value:* 1
+    
+
+- **nbRows**
+
+    - *Description:* Specify max number of items to return (for JSON format only)
+
+    - *Values:* an integer
+
+    - *Default value:* 10
+    
+
+- **rule-pattern**
+
+    - *Description:* 
+    
+      Filter the issues following the specified quality rules
+      
+      The common syntax for this parameter can be found in the Violation section
+
+    - *Values:* a combination of integers and strings, e.g. `rule-pattern=(7156,8294)`
+
+    - *Default value:* All quality rules
+    
+
+- **status**
+
+    - *Description:* Filter the issues following the specified statuses. Possible values: `added`, `pending`, `solved`
+
+    - *Values:* 
+    
+      Possible values are `added`, `pending` or `solved`
+
+      eg. `status=(added,pending)`
+
+    - *Default value:*  All statuses 
+    
+
+- **tag**
+
+    - *Description:* Filter the issues following the specified tags (an issue is returned if the tag equals the specified value)
+
+    - *Values:* e.g. `tag=(low,high)`
+
+    - *Default value:*  All tags
+    
+
+- **comment**
+
+    - *Description:* Filter the issues following the specified comment (an issue is returned if the comment equals the specified value) 
+
+    - *Values:*
+    
+      eg.
+      - `comment=()` /* blank comment */
+      - `comment=(test)`
+      - `comment=(,test)` /* blank comment or test */
+    
+    - *Default value:*  All comments
+    
+
+- **object-fullname**
+
+    - *Description:* Filter the issues following the specified object full name (an issue is returned if the object full name contains the specified value)
+
+    - *Values:* a string
+
+    - *Default value:*  All object full names
+    
 
 ### JSON Representation
 

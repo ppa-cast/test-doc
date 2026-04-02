@@ -24,7 +24,7 @@ The preferred approach is to format the descriptions (URI templates, URI paramet
 
     ### URI Templates 
 
-    - **GET**  `{Domain}/results{?parameters}`
+    - **GET** `{Domain}/results{?parameters}`
 
       - *Description*:
 
@@ -35,7 +35,7 @@ The preferred approach is to format the descriptions (URI templates, URI paramet
         - `text/csv`
         - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
 
-    - **PUT**  `{Domain}/results{?parameters}`
+    - **PUT** `{Domain}/results{?parameters}`
 
       - *Description*:
 
