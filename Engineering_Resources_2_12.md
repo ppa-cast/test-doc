@@ -1652,31 +1652,199 @@ Note 2: "violation" is also known as "failed check"
 
 This allows to filter violations with parameters, using a dedicated Lucene index.
 
-### URI Templates & Parameters
+### URI Templates 
 
-| HTTP Action | Media Type | URI Templates | Description |
-|---|---|---|---|
-| PUT | application/json | `{Domain}/violations-index` | Create the Lucene index dedicated to violations search *(Admin only)* |
-| GET | application/json | `{Domain}/violations-index` | Return information about the index |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/indexed-violations{?Parameters}` | Number and array of Violations resulting from filtering with Parameters for this application snapshot |
+- **PUT** `{Domain}/violations-index`
 
-**Parameters** (all optional)
+  - *Description*:
 
-| URI Parameter | Description | Values | Default value |
-|---|---|---|---|
-| startRow | See Violation startRow | an integer | 1 |
-| nbRows | See Violation nbRows | an integer | 10 |
-| rule-pattern | See Violation rule-pattern. e.g. `rule-pattern=(bqi:60014)`, `rule-pattern=(c:61020)`, `rule-pattern=(7156)`, `rule-pattern=(bqi:60014,c:61020,7156)` | a combination of integers and strings | All quality rules |
-| weight | A combination of integer values ranged from 1 to 9. e.g. `weight=(2)`, `weight=(2,5)` | Integer | All weights |
-| critical | `true` or `false`. e.g. `critical=(true)` means all critical QRs | Boolean | All criticalities |
-| business-criterion | See Violation business-criterion | an integer | None |
-| status | See Violation status | String | none |
-| object-status | The violated component status: `added`, `updated`, `unchanged` | String | none |
-| technologies | See Violation technologies | String | none |
-| modules | One or more module names | String | none |
-| transactions | One or more transaction ids | Integer | none |
-| object-fullname | A string to search in a component's name | String | none |
-| order | Specify columns to be sorted server-side. Values: `action-exclusion-status`, `component-name`, `rule-pattern-name`, `diagnosis-status`. Use `asc(...)` or `desc(...)`. By default: PRI desc, then RULE_NAME asc, then OBJECT_FULL_NAME asc, then OBJECT_ID asc. | String | PRI desc, rule name asc, object name asc |
+    Create the Lucene index dedicated to violations search *(Admin only)* 
+
+  - *Media Type*:
+    - `application/json`
+
+- **GET** `{Domain}/violations-index`
+
+  - *Description*:
+
+     Return information about the index 
+
+  - *Media Type*:
+    - `application/json`
+    
+- **GET**  `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/indexed-violations{?Parameters}`
+
+  - *Description*:
+
+    Number and array of Violations resulting from filtering with Parameters for this application snapshot
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv`
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+### URI Parameters
+
+All parameters are optional. If mentioned, they will filter the violations accordingly.
+
+- **startRow**
+
+    - *Description:* Specify first item 
+
+    - *Values:* an integer
+
+    - *Default value:* 1
+
+- **nbRows**
+
+    - *Description:* Specify max number of items to return
+
+    - *Values:* an integer
+
+    - *Default value:* 10
+
+- **rule-pattern**
+
+    - *Description:* 
+    
+        See Violation rule-pattern
+
+        A combination of bqi:BCID, c:TCID, RuleID
+        (bqi means Base Quality Indicator, c means Contributor)
+
+        eg.
+        - `rule-pattern=(bqi:60014)` means all QRs of BC “Efficiency”
+        - `rule-pattern=(c:61020)` means all QRs of TC “Programming Practices - Modularity and OO Encapsulation Conformity”
+        - `rule-pattern=(7156)` means the QR “Avoid Too Many Copy Pasted Artifacts”
+        - `rule-pattern=(bqi:60014,c:61020,7156)` means the union of all above QRs
+
+    - *Values:* a combination of integers and strings
+       
+    - *Default Value*: All quality rules
+
+- **weight**
+
+    - *Description:* 
+            
+        A combination of integer values ranged from 1 to 9
+
+        eg.
+        - `weight=(2)` means all QRs with a weight=2
+        - `weight=(2,5)` means all QRs with a weight=2 or a weight=5
+
+    - *Values:* an integer
+       
+    - *Default Value*: All weights
+
+- **critical**
+
+    - *Description:* 
+            
+       true or false
+
+       eg.
+       - `critical=(true)` means all critical QRs
+       - `critical=(false)` means all non critical QRs
+
+    - *Values:* a boolean
+       
+    - *Default Value*: All criticalities
+
+- **business-criterion**
+
+    - *Description:* See Violation business-criterion
+    
+    - *Values:* an integer
+
+    - *Default value:* none
+
+- **status**
+
+    - *Description:* See Violation status
+    
+    - *Values:* a string
+
+    - *Default value:* none
+    
+- **object-status**
+
+    - *Description:* 
+    
+      The violated component status
+
+      Takes one or more values among `added`, `updated`, `unchanged`
+    
+    - *Values:* a string
+
+    - *Default value:* none
+    
+- **technologies**
+
+    - *Description:* See Violation technologies
+    
+    - *Values:* a string
+
+    - *Default value:* none
+
+- **modules**
+
+    - *Description:* One or more module names
+    
+    - *Values:* a string
+
+    - *Default value:* none
+    
+- **transactions**
+
+    - *Description:* One or more transaction ids
+    
+    - *Values:* a string
+
+    - *Default value:* none
+        
+- **mode**
+
+    - *Description:* See Search Results mode
+    
+    - *Values:* a string
+
+    - *Default value:* none
+    
+- **object-fullname**
+
+    - *Description:* A string to search in a component's name
+
+    - *Values:* a string
+
+    - *Default value:* none
+
+- **order**
+
+    - *Description:* 
+
+      Specify columns to be sorted on server side
+   
+      asc means ascending order, desc means descending order.
+      Each sortable column is represented by a parameter value:
+      - Actions or Exclusions: `action-exclusion-status`
+      - Object name location: `component-name`
+      - Rule: `rule-pattern-name`
+      - Status: `diagnosis-status`
+   
+      The use of parameter order is optional. Also, if you use this parameter, you can mention from one to four values in it.
+      Any not mentioned column value takes the default value. By default, violations are sorted by: PRI desc (if any), then by RULE_NAME asc, then by OBJECT_FULL_NAME asc, then by OBJECT_ID asc
+   
+      Examples:
+      - `order=(asc(action-exclusion-status))` sorts the violations by ascending "Action/Exclusion": violations with remedial action, followed by violations with exclusion request, followed by all other violations
+      - `order=(desc(diagnosis-status))` sorts the violations by descending "Violation Status": "updated" violations, followed by "unchanged" violations, followed by "added" violations
+      - `order=(asc(action-exclusion-status),asc(component-name))` sorts the violations by ascending "Action/Exclusion", then by ascending "Object name"
+      - `order=(asc(action-exclusion-status),asc(rule-pattern-name),desc(component-name),asc(diagnosis-status))`
+   
+      NB Sorting works also with pagination. You can combine it with the `startRow` and `nbRows` parameters
+
+    - *Values:* an expression
+       
+    - *Default Value*: None
 
 **NB.** Any combination of the parameters rule-pattern, weight and critical gives the QRs verifying all the constraints. For example: `rule-pattern=(bqi:60014)&weight=(2,5)&critical=(true)` means "all critical QRs of BC Efficiency with weight=2 or weight=5"
 
