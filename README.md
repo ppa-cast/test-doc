@@ -44,7 +44,7 @@ The preferred approach is to format the descriptions (URI templates, URI paramet
       - *Media Type*:
         - `text/csv`
 
-    #### URI Parameters
+    ### URI Parameters
 
     - **quality-indicators**
 

@@ -533,56 +533,180 @@
 
 ## Component Snapshot
 
-### URI Templates & Parameters
+### URI Templates 
 
-| HTTP Action | Media Type | URI Templates | Description |
-|---|---|---|---|
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/components/{HealthFactorID}/{?parameters}` | Array of Components of an application snapshot filtered by Health Factor |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/components/{HealthFactorID}/{?parameters}` | Array of Components of a module snapshot filtered by Health Factor |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/components/{DistributionID}/{categoryRank}/{?parameters}` | Array of Components of a distribution for an application snapshot by Health Factor |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/components/{DistributionID}/{categoryRank}/{?parameters}` | Array of Components of a distribution for module snapshot by Health Factor |
-| GET | application/json | `{Domain}/applications/{ApplicationID}/components/65005/{?parameters}` | Array of Components for Cost Complexity |
-| GET | application/json | `{Domain}/modules/{ModuleID}/components/65005/{?parameters}` | Array of Components for Cost Complexity |
-| GET | application/json | `{Domain}/components/{ComponentID}/snapshots/{SnapshotID}` | A component snapshot |
+- **GET** `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/components/{HealthFactorID}/{?parameters}` 
 
+  - *Description*:
+
+    Array of Components of an application snapshot filtered by Health Factor
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv`
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **GET** `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/components/{HealthFactorID}/{?parameters}` 
+
+  - *Description*:
+
+     Array of Components of a module snapshot filtered by Health Factor 
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv`
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **GET** `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/components/{DistributionID}/{categoryRank}/{?parameters}`
+
+  - *Description*:
+
+     Array of Components of a distribution for an application snapshot by Health Factor
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv`
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **GET** `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/components/{DistributionID}/{categoryRank}/{?parameters}`
+
+  - *Description*:
+
+     Array of Components of a distribution for module snapshot by Health Factor
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv`
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+    
+- **GET** `{Domain}/applications/{ApplicationID}/components/65005/{?parameters}` 
+
+  - *Description*:
+
+    Array of Components for Cost Complexity
+    
+  - *Media Type*:
+    - `application/json`
+
+- **GET** `{Domain}/modules/{ModuleID}/components/65005/{?parameters}`
+
+  - *Description*:
+
+    Array of Components for Cost Complexity
+    
+  - *Media Type*:
+    - `application/json`
+    
+- **GET** `{Domain}/components/{ComponentID}/snapshots/{SnapshotID}`
+
+  - *Description*:
+
+    A component snapshot 
+    
+  - *Media Type*:
+    - `application/json`
+       
+### URI Parameters
+    
 #### Common parameters
 
-| URI Parameters | Description | Values | Default value |
-|---|---|---|---|
-| startRow | Specify first item | an integer | 1 |
-| nbRows | Specify max number of items to return | an integer | 10 |
-| business-criterion | A health factor ID to compute propagated risk index | String | None |
+- **startRow**
+
+    - *Description:* Specify first item 
+
+    - *Values:* an integer
+
+    - *Default value:* 1
+
+- **nbRows**
+
+    - *Description:* Specify max number of items to return
+
+    - *Values:* an integer
+
+    - *Default value:* 10
+
+- **business-criterion**
+
+    - *Description:* A health factor ID to compute propagated risk index 
+
+    - *Values: a string
+
+    - *Default value:* None
 
 #### Additional parameters for `{HealthFactorID}` URLs
 
-| URI Parameters | Description | Values | Default value |
-|---|---|---|---|
-| properties | List of component properties which should be non-null to filter the components. e.g. `properties=(cyclomaticComplexity,fanOut)`. Available properties: `codeLines`, `commentedCodeLines`, `commentLines`, `coupling`, `fanIn`, `fanOut`, `cyclomaticComplexity`, `ratioCommentLinesCodeLines`, `halsteadProgramLength`, `halsteadProgramVocabulary`, `halsteadVolume`, `distinctOperators`, `distinctOperands`, `integrationComplexity`, `essentialComplexity`. Their values are known only for the last snapshot. | a list of predefined strings | None |
-| order | By default, components are ordered by PRI desc (if any), component full name asc, component id asc. The sortable columns are all the above properties, plus: `pri`, `component-name`, `component-id` | a list of sort orders | None |
+- **properties**
+
+    - *Description:* 
+        List of component properties which should be non-null to filter the components. e.g. `properties=(cyclomaticComplexity,fanOut)`.
+        
+        Available properties: 
+            - `codeLines`, 
+            - `commentedCodeLines`, 
+            - `commentLines`, 
+            - `coupling`, 
+            - `fanIn`, 
+            - `fanOut`, 
+            - `cyclomaticComplexity`, 
+            - `ratioCommentLinesCodeLines`, 
+            - `halsteadProgramLength`, 
+            - `halsteadProgramVocabulary`, 
+            - `halsteadVolume`, 
+            - `distinctOperators`, 
+            - `distinctOperands`, 
+            - `integrationComplexity`, 
+            - `essentialComplexity`. 
+            
+        Their values are known only for the last snapshot.
+        
+    - *Values: a list of predefined strings 
+
+    - *Default value:* None
+
+- **order**
+
+    - *Description:* 
+        
+        By default, components are ordered by PRI desc (if any), component full name asc, component id asc.
+
+        The sortable columns are all the above properties, plus: 
+            - `pri`, 
+            - `component-name`, 
+            - `component-id`
+        
+    - *Values: a list of sort orders 
+
+    - *Default value:* None
+    
 
 #### Only parameters applicable to Cost Complexity (`65005`) URLs
 
-| URI Parameters | Description | Values | Default value |
-|---|---|---|---|
-| snapshot-ids | Two snapshot ids (snapshot range to consider). e.g. `snapshot-ids=(12,14)` | Two comma separated integers | none |
-| status | Status of the artifacts between snapshots. Possible values: `added`, `updated`, `deleted` | String | none |
-| technologies | A technology name to filter artifacts | String | none |
+- **snapshot-ids**
 
-### JSON Representation
+    - *Description:* Two snapshot ids (snapshot range to consider). e.g. `snapshot-ids=(12,14)` 
 
-| Properties | Description | Scope | Type | Occurs |
-|---|---|---|---|---|
-| href | Auto reference | n/a | URI | 1 |
-| name | Full name of the component. | n/a | String | 1 |
-| shortName | Short name of the component | n/a | String | 1 |
-| propagationRiskIndex | Risk propagation assessment index according to an input health factor. This attribute is not set if health factor is not specified | Enabled if a business criterion is specified | Integer | 0..1 |
-| status | An enumeration value of ["added", "updated", "unchanged"] | n/a | String | 0..1 |
-| sourceCodes.href | A reference to get an array of code fragments. Each code fragment is a part of the source code. This data is set only for the last snapshot of this application | Enabled for last Application Snapshot only | URI | 0..1 |
-| type.label | Component type label: "C++ Class", "Java Class", "Java Method" | n/a | String | 0..1 |
-| type.name | Component type name. This name can be used as a file name of a PNG image. | n/a | String | 0..1 |
-| treeNodes.href | A reference to get an array of all tree nodes linked to this component | Enabled for last snapshot only | URI | 0..1 |
+    - *Values:* Two comma separated integers
 
-### Additional properties
+    - *Default value:* None
+
+- **status**
+
+    - *Description:* Status of the artifacts between snapshots. Possible values: `added`, `updated`, `deleted` 
+
+    - *Values:* String
+
+    - *Default value:* None
+
+- **technologies**
+
+    - *Description:*  A technology name to filter artifacts
+
+    - *Values:* String
+
+    - *Default value:* None
+    
+#### Additional Parameters
 
 (available through the `{Domain}/components/{ComponentID}/snapshots/{SnapshotID}` URL only, and the "component" parameter of `{Domain}/tree-nodes/{Level}-{LowerID}-{UpperID}/snapshots/{SnapshotID}` URL only)
 
@@ -603,6 +727,22 @@
 | distinctOperands | Number of distinct operands | Enabled for last snapshot only, on requesting a single ComponentSnapshot | Integer | 0..1 |
 | integrationComplexity | Integration Complexity measures the number of independent integration paths | Enabled for last snapshot only, on requesting a single ComponentSnapshot | Integer | 0..1 |
 | essentialComplexity | Essential Complexity measures the number of non-structured independent paths | Enabled for last snapshot only, on requesting a single ComponentSnapshot | Integer | 0..1 |
+    
+    
+### JSON Representation
+
+| Properties | Description | Scope | Type | Occurs |
+|---|---|---|---|---|
+| href | Auto reference | n/a | URI | 1 |
+| name | Full name of the component. | n/a | String | 1 |
+| shortName | Short name of the component | n/a | String | 1 |
+| propagationRiskIndex | Risk propagation assessment index according to an input health factor. This attribute is not set if health factor is not specified | Enabled if a business criterion is specified | Integer | 0..1 |
+| status | An enumeration value of ["added", "updated", "unchanged"] | n/a | String | 0..1 |
+| sourceCodes.href | A reference to get an array of code fragments. Each code fragment is a part of the source code. This data is set only for the last snapshot of this application | Enabled for last Application Snapshot only | URI | 0..1 |
+| type.label | Component type label: "C++ Class", "Java Class", "Java Method" | n/a | String | 0..1 |
+| type.name | Component type name. This name can be used as a file name of a PNG image. | n/a | String | 0..1 |
+| treeNodes.href | A reference to get an array of all tree nodes linked to this component | Enabled for last snapshot only | URI | 0..1 |
+
 
 ### JSON Example
 

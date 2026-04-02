@@ -197,7 +197,7 @@
     - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
 
 
-#### URI Parameters
+### URI Parameters
 
 - **quality-indicators**
 
