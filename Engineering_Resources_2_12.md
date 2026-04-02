@@ -2022,4 +2022,109 @@ This represents the counts of total, added, updated or unchanged violations.
 
 ## Findings Report
 
-> **Note:** This section covers the Findings Report resource. Please refer to the official documentation for full details.
+# Findings Report
+
+Create a report of violation findings including rules descriptions.
+
+The `accept-language` HTTP header parameter can be set in order to get the translation of rules descriptions.
+
+## URI Templates
+
+| HTTP Action | Media Type | URI Templates | Description |
+| --- | --- | --- | --- |
+| GET | `application/json` | `/{Domain}/applications/{ApplicationID}/findings-report?{parameters}` | Create a findings report with a JSON format |
+| GET | `application/xml` | `/{Domain}/applications/{ApplicationID}/findings-report?{parameters}` | Create a findings report with an XML format |
+| GET | `text/html` | `/{Domain}/applications/{ApplicationID}/findings-report?{parameters}` | Create a findings report with an HTML format for a preview |
+
+### Parameters
+
+| URI Parameter | Description | Default value |
+| --- | --- | --- |
+| `business-criteria` | Fetch all rules attached to a business criteria list. Example for an ISO-5055 Index Report, when the ISO-5055 Index extension is installed:<br>`business-criteria=1061001,1061002,1061003,1061004`<br>Note: the structure of the report will be: Business Criteria/Rules | `60017` (TQI) |
+| `quality-standards` | Fetch rules attached to a quality standard when the Quality Standard extension is installed.<br>`quality-standards=ISO-5055`<br>Note: the structure of the report will be: CWE/Rules | |
+| `quality-categories` | Fetch rules attached to quality categories when the Quality Standard extension is installed.<br>`quality-categories=ISO-5055-Maintainability,ISO-5055-Performance-Efficiency,ISO-5055-Reliability,ISO-5055-Security`<br>Note: the structure of the report will be: Criteria/Rules. This is the same as the `business-criteria` example, except that the installation of ISO-5055 index is not required | |
+| `select` | Control the report output:<br>`select=code-fragment` will add code fragment of each violation | |
+| `findings-limit` | This is the number of reported findings per rule. Ex of a finding: a bookmark (including secondary bookmarks), a full call path (dataflow), an associated value.<br>Set `999999` for unlimited value (it should be avoided for large applications). This parameter aims to control the output report size. | `3` |
+| `surrounding-lines` | This parameter adds N lines before/after a bookmark when the code fragment is required. | `0` |
+
+---
+
+## JSON Representation
+
+| Property | Description | Type | Occurs |
+| --- | --- | --- | --- |
+| `name` | A top-level rules category name: a business criterion name, or a quality standard name, or a quality category name | String | 1 |
+| `subCategories` | The list of sub categories | Array | 1 |
+| `subCategories[]` | A sub category | Structure | 1..* |
+| `subCategories[].name` | A sub category name | String | 1 |
+| `subCategories[].rules` | The list of violated quality rules for this category | Array | 1 |
+| `subCategories[].rules[]` | A violated quality rule | Structure | 1..* |
+| `subCategories[].rules[].id` | A quality rule ID | Integer | 1 |
+| `subCategories[].rules[].name` | A quality rule name | String | 1 |
+| `subCategories[].rules[].rationale` | A quality rule rationale | String | 1 |
+| `subCategories[].rules[].description` | A quality rule description | String | 1 |
+| `subCategories[].rules[].remediation` | A quality rule remediation | String | 1 |
+| `subCategories[].rules[].critical` | Critical rule in case of a report based on business criteria | Boolean | 0..1 |
+| `subCategories[].rules[].maxWeight` | Maximum weight contribution in case of a report based on business criteria | Integer | 0..1 |
+| `subCategories[].rules[].violations` | The list of violations for a quality rule | Array | 1 |
+| `subCategories[].rules[].violations[]` | A violation | Structure | 1..* |
+| `subCategories[].rules[].violations[].objectFullName` | The component full name in violation | String | 1 |
+| `subCategories[].rules[].violations[].objectType` | The type of the component in violation | String | 1 |
+| `subCategories[].rules[].violations[].findingName` | A finding name. For simple value findings this is the associated value name | String | 1 |
+| `subCategories[].rules[].violations[].findingType` | A finding type among: `number`, `percentage`, `text`, `integer`, `no-value`, `object`, `path`, `group`, `bookmark` | String | 1 |
+| `subCategories[].rules[].violations[].findings` | A list of findings for this violation | Array | 1 |
+| `subCategories[].rules[].violations[].findings[]` | A finding of this violation | Structure | 1..* |
+| `subCategories[].rules[].violations[].findings[].findingKey` | An identifier of the finding | Integer | 1 |
+| `subCategories[].rules[].violations[].findings[].findingValues` | A list of findings values when the finding type is a simple value: `number`, `percentage`, `text`, `integer` | Array | 1 |
+| `subCategories[].rules[].violations[].findings[].findingValues[]` | A finding value | any | 1..* |
+| `subCategories[].rules[].violations[].findings[].locations` | The source code locations of the finding | Array | 1 |
+| `subCategories[].rules[].violations[].findings[].locations[]` | A source code location | Structure | 1 |
+| `subCategories[].rules[].violations[].findings[].locations[].rank` | The rank order of the location | Integer | 1 |
+| `subCategories[].rules[].violations[].findings[].locations[].sourcePath` | The source code path | String | 0..1 |
+| `subCategories[].rules[].violations[].findings[].locations[].startLine` | The start line of the objects in violation (for finding type: `integer`, `text`), the start line of the bookmark (for finding type `bookmark`), or the start line of the call path (for finding type `path`) | Integer | 0..1 |
+| `subCategories[].rules[].violations[].findings[].locations[].endLine` | The end line of the objects in violation (for finding type: `integer`, `text`), the end line of the bookmark (for finding type `bookmark`), or the end line of the call path (for finding type `path`) | Integer | 0..1 |
+| `subCategories[].rules[].violations[].findings[].locations[].codeFragment` | The code fragment | String | 0..1 |
+| `subCategories[].rules[].violations[].findings[].locations[].fragmentStartLine` | The start line of the bookmark (for finding type `bookmark`) relatively to the code fragment | Integer | 0..1 |
+| `subCategories[].rules[].violations[].findings[].locations[].fragmentEndLine` | The end line of the bookmark (for finding type `bookmark`) relatively to the code fragment | Integer | 0..1 |
+
+---
+
+## XML Representation
+
+| XPath | Description | Type | Occurs |
+| --- | --- | --- | --- |
+| `/categories` | The list of top-level rule categories | | |
+| `/categories/category` | A top-level rule category | | |
+| `/categories/category@name` | A top-level rules category name: a business criterion name, or a quality standard name, or a quality category name | String | 1 |
+| `/categories/category/subCategories` | The list of sub categories | Array | 1 |
+| `/categories/category/subCategories/subCategory` | A sub category | Structure | 1..* |
+| `/categories/category/subCategories/subCategory@name` | A sub category name | String | 1 |
+| `/categories/category/subCategories/subCategory/rules` | The list of violated quality rules for this category | Array | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule` | A violated quality rule | Structure | 1..* |
+| `/categories/category/subCategories/subCategory/rules/rule@id` | A quality rule ID | Integer | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule@name` | A quality rule name | String | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule@rationale` | A quality rule rationale | String | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule@description` | A quality rule description | String | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule@remediation` | A quality rule remediation | String | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule@critical` | Critical rule in case of a report based on business criteria | Boolean | 0..1 |
+| `/categories/category/subCategories/subCategory/rules/rule@maxWeight` | Maximum weight contribution in case of a report based on business criteria | Integer | 0..1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations` | The list of violations for a quality rule | Array | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation` | A violation | Structure | 1..* |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation@objectFullName` | The component full name in violation | String | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation@objectType` | The type of the component in violation | String | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation@findingName` | A finding name. For simple value findings this is the associated value name | String | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation@findingType` | A finding type among: `number`, `percentage`, `text`, `integer`, `no-value`, `object`, `path`, `group`, `bookmark` | String | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation/findings` | A list of findings for this violation | Array | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation/findings/finding` | A finding of this violation | Structure | 1..* |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation/findings/finding@key` | An identifier of the finding | Integer | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation/findings/finding/values` | A list of findings values when the finding type is a simple value: `number`, `percentage`, `text`, `integer` | Array | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation/findings/finding/values/value` | A finding value | any | 1..* |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation/findings/finding/locations` | The source code locations of the finding | Array | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation/findings/finding/locations/location` | A source code location | Structure | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation/findings/finding/locations/location@rank` | The rank order of the location | Integer | 1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation/findings/finding/locations/location@sourcePath` | The source code path | String | 0..1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation/findings/finding/locations/location@startLine` | The start line of the objects in violation (for finding type: `integer`, `text`), the start line of the bookmark (for finding type `bookmark`), or the start line of the call path (for finding type `path`) | Integer | 0..1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation/findings/finding/locations/location@endLine` | The end line of the objects in violation (for finding type: `integer`, `text`), the end line of the bookmark (for finding type `bookmark`), or the end line of the call path (for finding type `path`) | Integer | 0..1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation/findings/finding/locations/location/codeFragment` | The code fragment | String | 0..1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation/findings/finding/locations/location/codeFragment@startLine` | The start line of the bookmark (for finding type `bookmark`) relatively to the code fragment | Integer | 0..1 |
+| `/categories/category/subCategories/subCategory/rules/rule/violations/violation/findings/finding/locations/location/codeFragment@endLine` | The end line of the bookmark (for finding type `bookmark`) relatively to the code fragment | Integer | 0..1 |
