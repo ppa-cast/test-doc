@@ -1615,9 +1615,19 @@ A violation identifies a component breaking a quality rule, with the following p
 - a set of findings to pinpoint the statements or properties of the defective component violating the rule pattern
 - a remedial action request or an exclusion request
 
+For example, consider these 2 quality rules:
+- 1. "Methods must have appropriate JavaDoc @param tags"
+- 2. "Avoid calling the same paragraph with PERFORM and GO TO statements"  
+
+For Quality Rule #1, diagnosis results are list of parameter names without documentation.
+
+For Quality Rule #2; diagnosis results are list of "GO TO" statements. For each diagnosis result, a pair of diagnosis bookmarks locates the GO TO and the PERFORM statement.
+
 Note: "findings" are also known as "associated values"
 
-Note 2: "violation" is also known as "failed check"
+Note 2: "violation" is also known as "failed check" 
+
+
 
 ### URI Templates & Parameters
 
