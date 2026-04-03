@@ -884,7 +884,7 @@ A raw text.
 |---|---|---|---|
 | objectSamples | Specify a number of sample objects to display | An integer | 5 |
 | rule-pattern | Filter the issues following the specified quality rules. The common syntax for this parameter can be found in the Violation section | a combination of integers and strings, e.g. `rule-pattern=(7156,8294)` | All quality rules |
-| status | Filter the issues following the specified statuses. Possible values: `added`, `pending`, `solved` | e.g. `status=(added,pending)` | All statuses |
+| status | Filter the issues following the specified statuses.| Possible values: `added`, `pending`, `solved`<br/>e.g. `status=(added,pending)` | All statuses |
 | tag | Filter the issues following the specified tags (an issue is returned if the tag equals the specified value) | e.g. `tag=(low,high)` | All tags |
 | comment | Filter the issues following the specified comment (an issue is returned if the comment equals the specified value) | e.g. `comment=()` (blank comment), `comment=(test)`, `comment=(,test)` (blank or test) | All comments |
 | object-fullname | Filter the issues following the specified object full name (an issue is returned if the object full name contains the specified value) | a string | All object full names |
@@ -1004,17 +1004,7 @@ An issue represents a remedial action for a rule pattern and a component in a co
   - *Media Type*:
     - `application/json`
     
-  - *Example of Payload*:
-    ```json
-    [
-      {
-        "component": { "href": "D/components/C/snapshots/S" },
-        "rulePattern": { "href": "D/rule-patterns/M" },
-        "remedialAction": { "comment": "comment text", "tag": "mytag" }
-      }
-    ]
-    ```
-    
+   
 - **PUT** `{Domain}/applications/{ApplicationID}/action-plan/issues`
 
   - *Description*:
@@ -1044,16 +1034,6 @@ An issue represents a remedial action for a rule pattern and a component in a co
   - *Media Type*:
     - `application/json`
 
-  - *Example of Payload*:
-    ```json
-    [
-      {
-        "component": { "href": "D/components/C/snapshots/S" },
-        "rulePattern": { "href": "D/rule-patterns/M" },
-        "remedialAction": { "comment": "comment text", "tag": "mytag" }
-      }
-    ]
-    ```
 
 - **DELETE** `{Domain}/applications/{ApplicationID}/action-plan/issues`
 
@@ -1353,7 +1333,7 @@ An Action Plan Trigger is composed of a rule pattern and a remedial action. If a
 
 | Properties | Description | Type | Occurs |
 |---|---|---|---|
-| status | **added**: a newly created exclusion request; **processed**: an exclusion request that has been processed; **unbound**: an exclusion request has been defined but the violation does not exist any more | String | 1 |
+| status | **added**: a newly created exclusion request;<br/>**processed**: an exclusion request that has been processed;<br/>**unbound**: an exclusion request has been defined but the violation does not exist any more | String | 1 |
 | userName | User name who created/updated the exclusion request | String | 1 |
 | comment | A comment (e.g. "False Positive") | String | 1 |
 | dates.updated | Creation date or date of last update | Date | 1 |
@@ -1505,7 +1485,7 @@ An exclusion request represents the request to exclude a violation in the future
 
 | URI Parameter | Description | Values | Default value |
 |---|---|---|---|
-| status | Status of the scheduled exclusion: `to-add` = violations to exclude at the next snapshot; `to-remove` = exclusions to de-exclude; `$all` = all regardless of status | `to-add`, `to-remove`, `$all` | `$all` |
+| status | Status of the scheduled exclusion:<br/>`to-add` = violations to exclude at the next snapshot;<br/>`to-remove` = exclusions to de-exclude;<br/>`$all` = all regardless of status | `to-add`, `to-remove`, `$all` | `$all` |
 | rule-pattern | Filter the scheduled exclusions following the specified quality rules | a combination of integers and strings | All quality rules |
 | startRow | Specify first item (for JSON format only) | an integer | 1 |
 | nbRows | Specify max number of items to return (for JSON format only) | an integer | 10 |
@@ -1530,6 +1510,61 @@ An exclusion request represents the request to exclude a violation in the future
 | Object name location | Full name of the object | String | 1 |
 | Exclusion request last update | Date of last update of the exclusion request | String | 1 |
 | Metric Id | Quality Rule Id | Integer | 1 |
+
+### JSON Example
+
+```json
+[
+   {
+      "component":{
+         "href":"ENDTOEND83/components/19517/snapshots/15",
+         "name":"com.castsoftware.util.data.Criterion",
+         "shortName":"Criterion"
+      },
+      "rulePattern":{
+         "href":"ENDTOEND83/rule-patterns/4554",
+         "name":"Avoid large Classes - too many Methods"
+      },
+      "exclusionRequest":{
+         "status":"added",
+         "userName":"DCA",
+         "comment":"Num metric, Single AV, Violation in last snapshot (15)",
+         "dates":{
+            "updated":{
+               "time":1497279600000,
+               "isoDate":"2017-06-12"
+            }
+         }
+      },
+      "remedialAction":null
+   },
+   {
+      "component":{
+         "href":"ENDTOEND83/components/17172/snapshots/15",
+         "name":"O11JNK.LINDBERGH_CENTRAL.PROPATTR",
+         "shortName":"PROPATTR"
+      },
+      "rulePattern":{
+         "href":"ENDTOEND83/rule-patterns/1596",
+         "name":"Avoid using \"nullable\" Columns except in the last position in a Table"
+      },
+      "exclusionRequest":null,
+      "remedialAction":null
+   }"..."
+]
+```
+
+### CSV/EXCEL Example
+
+| Exclusion status | Exclusion requester | Exclusion request comment | Quality rule name                                                     | Metric Id | Object name location                          | Exclusion request last update |
+| -----------------|---------------------|---------------------------|-----------------------------------------------------------------------|-----------|-----------------------------------------------|-------------------------------|
+| to add           | DCA                 | Comment 1                 | Avoid large Classes - too many Methods                                | 4554      | com.castsoftware.util.data.Criterion          | 2017-06-12
+| to remove        |                     |                           | Avoid using "nullable" Columns except in the last position in a Table | 1596      | O11JNK.LINDBERGH_CENTRAL.PROPATTR             | 
+| to add           | DCA                 | Comment 2                 | Avoid using Fields (non static final) from other Classes              | 46028     | <Default Package>.ButtonReset.actionPerformed | 2017-06-12
+| to add           | ExclusionMan        | Comment 3                 | Avoid using Global Variables                                          | 588       | <none>                                        | 2017-06-12
+| to add           | ExclusionMan        | Comment 4                 | Avoid using Inner Classes                                             | 7308      | com.castsoftware.util.string.XMLFileInterpreterImpl.flushSection | 2017-06-12
+| to add           | DCA | Comment 5     |                           | Methods must have appropriate JavaDoc @param tags                     | 4672      | com.castsoftware.util.data.retriever.RowReaderConstant.close | 2017-06-12
+
 
 ---
 
@@ -2355,30 +2390,30 @@ Search results are items indexed by Lucene. As the construction of these indexes
 
 ```json
 [
-	{
-		"name": "/com.castsoftware.omg-ascqm-index",
-		"version": "20200602.0.0-funcrel"
-	},
-	{
-		"name": "/com.castsoftware.asp",
-		"version": "1.0.0"
-	},
-	{
-		"name": "/com.castsoftware.angularjs",
-		"version": "2.0.12-funcrel"
-	},
-	{
-		"name": "/com.castsoftware.jquery",
-		"version": "2.2.0-funcrel"
-	},
-	{
-		"name": "/com.castsoftware.mips-redux-index",
-		"version": "20200602.0.0-funcrel"
-	},
-	{
-		"name": "/com.castsoftware.nodejs",
-		"version": "2.3.0-beta3"
-	}
+    {
+        "name": "/com.castsoftware.omg-ascqm-index",
+        "version": "20200602.0.0-funcrel"
+    },
+    {
+        "name": "/com.castsoftware.asp",
+        "version": "1.0.0"
+    },
+    {
+        "name": "/com.castsoftware.angularjs",
+        "version": "2.0.12-funcrel"
+    },
+    {
+        "name": "/com.castsoftware.jquery",
+        "version": "2.2.0-funcrel"
+    },
+    {
+        "name": "/com.castsoftware.mips-redux-index",
+        "version": "20200602.0.0-funcrel"
+    },
+    {
+        "name": "/com.castsoftware.nodejs",
+        "version": "2.3.0-beta3"
+    }
 ]
 ```
 
