@@ -1185,21 +1185,112 @@ An issue represents a remedial action for a rule pattern and a component in a co
 
 An Action Plan Trigger is composed of a rule pattern and a remedial action. If active, all the violations of the corresponding rule will be automatically put in Action Plan in the next snapshot.
 
-### URI Templates & Parameters
 
-| HTTP Action | Media Type | URI Templates | Description |
-|---|---|---|---|
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/action-plan/triggers{?Parameters}` | Array of action plan triggers applicable in the next snapshot |
-| POST | application/json | `{Domain}/applications/{ApplicationID}/action-plan/triggers` | Create a set of action plan triggers. Users MUST have `QUALITY_AUTOMATION_MANAGER` Role. |
-| PUT | application/json | `{Domain}/applications/{ApplicationID}/action-plan/triggers` | Update a set of action plan triggers. Users MUST have `QUALITY_AUTOMATION_MANAGER` Role. |
-| DELETE | application/json | `{Domain}/applications/{ApplicationID}/action-plan/triggers` | Remove a set of action plan triggers. Users MUST have `QUALITY_AUTOMATION_MANAGER` Role. |
+### URI Templates 
 
-**Parameters**
+- **GET** `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/action-plan/triggers{?Parameters}` 
 
-| URI Parameter | Description | Values | Default value |
-|---|---|---|---|
-| rule-pattern | Filter the action plan triggers following the specified quality rules. The common syntax for this parameter can be found in the Violation section | a combination of integers and strings | All quality rules |
+  - *Description*:
 
+    Array of action plan triggers applicable in the next snapshot
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv`
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **POST** `{Domain}/applications/{ApplicationID}/action-plan/triggers`  
+
+  - *Description*:
+
+    Create a set of action plan triggers. 
+    
+    Users MUST have `QUALITY_AUTOMATION_MANAGER` Role and MUST be granted to access to the related application
+
+    (info) Payload is a collection of triplets: rule pattern, remedial action pattern, active.
+
+    ```json
+    [ 
+        {
+            "rulePattern": {"href" : "D/rule-patterns/M"},
+            "remedialActionPattern": {"tag": "blabla bla", "comment": "to do asap"},
+            "active": "true"
+        }, 
+        ... 
+    ]
+    ```
+
+    (info) For compatibility considerations with earlier versions, the following format is still accepted:
+
+    ```json
+        "remedialActionPattern": {"priority": "extreme", "comment": "to do asap"}
+    ```
+
+  - *Media Type*:
+    - `application/json`
+
+- **PUT** `{Domain}/applications/{ApplicationID}/action-plan/triggers`  
+
+  - *Description*:
+
+    Update a set of action plan triggers
+
+    Users MUST have `QUALITY_AUTOMATION_MANAGER` Role and MUST be granted to access to the related application
+
+    (info) Payload is a collection of triplets: rule pattern, remedial action pattern, active.
+
+    ```json
+    [ 
+        {
+            "rulePattern": {"href" : "D/rule-patterns/M"},
+            "remedialActionPattern": {"tag": "blabla bla", "comment": "to do asap"},
+            "active": "true"
+        }, 
+        ... 
+    ]
+    ```
+    
+    (info) For compatibility considerations with earlier versions, the following format is still accepted:
+    
+    ```json
+        "remedialActionPattern": {"priority": "low", "comment": "to do someday"}
+    ```
+
+  - *Media Type*:
+    - `application/json`
+
+- **DELETE** `{Domain}/applications/{ApplicationID}/action-plan/triggers`  
+
+  - *Description*:
+
+    Remove a set of action plan triggers
+
+    Users MUST have `QUALITY_AUTOMATION_MANAGER` Role and MUST be granted to access to the related application
+
+    (info) Payload is a collection of rule patterns:
+
+    ```json
+    [ 
+        { 
+            "rulePattern": {"href": "D/rule-patterns/M"}
+        }, 
+        ... 
+    ]
+    ```
+
+  - *Media Type*:
+    - `application/json`
+    
+### URI Parameters
+
+- **rule-pattern**
+
+    - *Description:* Filter the action plan triggers following the specified quality rules. The common syntax for this parameter can be found in the Violation section 
+
+    - *Values:* a combination of integers and strings
+
+    - *Default value:* All quality rules 
+    
 ### JSON Representation
 
 | Properties | Description | Type | Occurs |
