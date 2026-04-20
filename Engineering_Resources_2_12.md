@@ -23,7 +23,8 @@
 - [Remedial Action](#remedial-action)
 - [Issue](#issue)
 - [Action Plan Trigger](#action-plan-trigger)
-- [Action Plan Recommendation](#action-plan-recommendation)
+- [Action Plan Recommendation #1](#action-plan-recommendation-1)
+- [Action Plan Recommendation #2](#action-plan-recommendation-2)
 - [Exclusion Request Detail](#exclusion-request-detail)
 - [Exclusion Request](#exclusion-request)
 - [Exclusion Summary](#exclusion-summary)
@@ -1324,28 +1325,138 @@ An Action Plan Trigger is composed of a rule pattern and a remedial action. If a
 
 ---
 
-## Action Plan Recommendation
+## Action Plan Recommendation #1
 
-### URI Templates to automatically get an action plan recommendation
+To automatically get an action plan recommendation
 
-| HTTP Action | Media Type | URI Templates | Description |
-|---|---|---|---|
-| GET | application/json | `{Domain}/action-plan-recommendation?{parameters}` | Calculate a recommendation action plan in order to reach a target for an application. Users MUST have `QUALITY_MANAGER` Role. Returns an HTTP Error if the target is already reached. |
-| GET | application/json | `{Domain}/applications/{ApplicationID}/action-plan-recommendation?{parameters}` | Calculate a recommendation action plan for a specific application. Users MUST have `QUALITY_MANAGER` Role. |
-| PUT | application/json | `{Domain}/action-plan-recommendation` | Calculate a recommendation action plan and create automatically the action plan issues. Users MUST have `QUALITY_MANAGER` Role. |
-| PUT | application/json | `{Domain}/applications/{ApplicationID}/action-plan-recommendation` | Same for a specific application. |
+### URI Templates 
 
-**Parameters (GET as query params / PUT as payload)**
+- **GET** `{Domain}/action-plan-recommendation?{parameters}` 
 
-| Payload | URI Parameter | Description | Type | Default value |
-|---|---|---|---|---|
-| qualityIndicator | quality-indicator | A business criterion ID to improve. | Integer | 60017 (Total Quality Index) |
-| scoreType | score-type | The score type to improve: `"grade"` (1.0–4.0) or `"compliance"` (0.0–1.0) | String | grade |
-| goal | goal | The goal: `"reach-score-minimizing-violations"`, `"reach-score-minimizing-effort"`, `"reach-violations-count-maximizing-score"`, `"reach-total-effort-maximizing-score"` | String | reach-score-minimizing-violations |
-| target | target | A target depending on the goal: grade (1.0–4.0), compliance (0.0–1.0), number of violations, or effort in minutes. | Decimal | 4.0 for a grade; 1.0 for compliance; 1 for violations; 480 for effort |
-| application | application-name | Application name for the first URI template. | String | Default if single application |
-| append | append | `false` = ignore current action plan; `true` = include current action plan. **WARNING**: PUT with `append=true` removes all current issues first. | Boolean | false |
+  - *Description*:
 
+    Calculate a recommendation action plan in order to reach a target for an application. 
+
+    Users MUST have QUALITY_MANAGER Role and MUST be granted to access to the related application
+
+    Return an HTTP Error if the target is already reached
+
+  - *Media Type*:
+    - `application/json`
+
+- **GET** `{Domain}/applications/{ApplicationID}/action-plan-recommendation?{parameters}` 
+
+  - *Description*:
+
+    Calculate a recommendation action plan in order to reach a target for an application. 
+
+    Users MUST have QUALITY_MANAGER Role and MUST be granted to access to the related application
+
+    Return an HTTP Error if the target is already reached
+
+  - *Media Type*:
+    - `application/json`
+    
+- **PUT** `{Domain}/action-plan-recommendation`
+
+  - *Description*:
+
+    Calculate a recommendation action plan in order to reach a target for an application, and create automatically the action plan issues
+
+    Users MUST have QUALITY_MANAGER Role and MUST be granted to access to the related application
+
+    Return an HTTP Error if the target is already reached
+
+  - *Media Type*:
+    - `application/json`
+    
+- **PUT** `{Domain}/applications/{ApplicationID}/action-plan-recommendation` 
+
+  - *Description*:
+
+    Calculate a recommendation action plan in order to reach a target for an application, and create automatically the action plan issues
+
+    Users MUST have QUALITY_MANAGER Role and MUST be granted to access to the related application
+
+    Return an HTTP Error if the target is already reached
+
+  - *Media Type*:
+    - `application/json`
+    
+### URI Parameters
+
+These parameters set the Action Plan Recommendation options, as query parameters for GET action, or as payload data for PUT action:
+
+- **qualityIndicator/quality-indicator*
+
+    - *Description:* A business criterion ID to improve.
+
+    - *Type:* Integer
+
+    - *Default value:* 60017 (Total Quality Index)
+
+- **scoreType/score-type*
+
+    - *Description:* 
+    
+        The score type to improve for the quality indicator:
+
+        - "grade": score between 1.0 and 4.0
+        - "compliance": compliance score between 0.0 and 1.0
+
+    - *Type:* String
+
+    - *Default value:* grade
+
+- **goal/goal*
+
+    - *Description:* 
+    
+        The goal of the action plan:
+
+        - "reach-score-minimizing-violations": Reach a grade or a compliance score with the minimum violations to fix
+        - "reach-score-minimizing-effort": Reach a grade or a compliance with the minimum effort
+        - "reach-violations-count-maximizing-score": Fix violations to get the maximum grade or compliance score
+        - "reach-total-effort-maximizing-score": Allocate effort to get the maximum grade of compliance score
+
+    - *Type:* String
+
+    - *Default value:* reach-score-minimizing-violations
+
+- **target/target*
+
+    - *Description:* 
+    
+        A target to each depending on the goal.
+
+        This is a value between 1.0 and 4.0 for a grade, a value between 0.0 and 1.0 for a compliance score, a number of violations to fix, or an effort in minutes.
+
+    - *Type:* Decimal
+
+    - *Default value:* Default value is 4.0 for a grade; 1.0 or a compliance score, 1 for a number of violations to fix, 8*60 (1 man/day) for an effort.
+
+- **application/application-name*
+
+    - *Description:* 
+    
+       Application name for the first URI template. The user must be authorized to access this application
+
+    - *Type:* String
+
+    - *Default value:* When there is a single application, this application is set by default.
+
+- **append/append*
+
+    - *Description:* 
+    
+        If append=false ignore the current action plan, if append=true include the current action plan issues in the recommendation.
+
+        WARNING: In case of a PUT action, if append =true, then the current action plan issues are all removed
+        
+    - *Type:* Boolean
+
+    - *Default value:* false
+    
 **Payload Example**
 
 ```json
@@ -1390,18 +1501,22 @@ An Action Plan Trigger is composed of a rule pattern and a remedial action. If a
 | actionPlan[].components[].type.name | Type code name | String | 1 |
 | actionPlan[].components[].type.label | Readable type name | String | 1 |
 
-### URI Templates to inject recommended remediations from a client
+## Action Plan Recommendation #2
+
+To inject recommended remediations from a client
+
+### URI Templates 
 
 | HTTP Action | Media Type | URI Templates | Description |
 |---|---|---|---|
-| POST | application/json | `{Domain}/applications/{ApplicationID}/action-plan/issues/recommendations` | Add action plan issues from a payload of remediations. Domain must be an Engineering domain. Users MUST have `QUALITY_MANAGER` Role. |
+| POST | application/json | `{Domain}/applications/{ApplicationID}/action-plan/issues/recommendations` | Add action plan issues from a payload of remediations<br/>Domain must be an Engineering domain<br/>Users MUST have QUALITY_MANAGER Role and MUST be granted to access to the related application<br>Return an HTTP Error if the target is already reached |
 
 ### JSON Representation of Payload of Remediations
 
 | Properties | Description | Type | Occurs |
 |---|---|---|---|
 | rulePattern | Rule Pattern | Structure | 1 |
-| remedialAction | Remedial Action Pattern | Structure | 1 |
+| remedialAction | Remedial Action Pattern<br/>NB. Whether the input has been "comment + priority" or "comment + tag", the JSON will contain {{"priority": "value", "tag": null}} or {{"priority": null, "tag": "value"}}. | Structure | 1 |
 | number | Number of violations to add to action plan | Integer | 1 |
 
 ### Example
@@ -1411,7 +1526,12 @@ An Action Plan Trigger is composed of a rule pattern and a remedial action. If a
   "rulePattern": { "href": "AED13/rule-patterns/7438" },
   "remedialAction": { "tag": "high", "comment": "Recommended action plan for Total Quality Index score improvement from 2.67 to 2.98" },
   "number": 3
-}
+},
+{ 
+  "rulePattern": { "href": "AED13/rule-patterns/7434" }, 
+  "remedialAction": { "tag": "high", "comment": "Recommended action plan for Total Quality Index score improvement from 2.67 to 2.98" }, 
+  "number": 1 
+} 
 ```
 
 ---
