@@ -2435,11 +2435,32 @@ All parameters are optional. If mentioned, they will filter the violations accor
 }
 ```
 
+GET ENDTOEND833/violations-index:
+
+```json
+{
+    "href": "ENDTOEND833/violations-index",
+    "name": "Violations search index for applications of ENDTOEND833",
+    "status": "toUpdate",           /* status of the index */
+    "date": {                       /* date of index creation or update */
+        "time": 1493775223000,
+        "isoDate": "2017-05-03"
+    },
+    "lastSnapshotDate": {           /* date of last snapshot for this domain */
+        "time": 1493778823000,
+        "isoDate": "2017-05-03"
+    },
+    "size": 6954394                 /* size of the index in bytes */
+}
+```
+
 ### Excel/CSV Representation
 
 See Violation Excel/CSV Representation.
 
 ## Violations Summary
+
+This represents the counts of total, added, updated or unchanged violations.
 
 ### URI Templates 
 
