@@ -2050,7 +2050,7 @@ Diagnosis with bookmarks:
 
 | Quality rule name                            | Metric Id | Business Criterion | Object name location                     | Object Status | Snapshot Date | Propagation Risk Index | Status    | Number of violations | Action Plan Status | Action Plan Priority |
 |----------------------------------------------|-----------|--------------------|------------------------------------------|---------------|---------------|------------------------|-----------|----------------------|--------------------|------------- |
-| Avoid missing WHEN OTHERS in CASE statements | 8028      | Transferability    | F:\USERS\ABD\CAST-TESTS\.../KCD_FTAB_GET | unchanged     | 2014-12-31    | 1                      | unchanged | 3                    | pendingIssues      |              |
+| Avoid missing WHEN OTHERS in CASE statements | 8028      | Transferability    | F:\USERS\ABD\CAST-TESTS\.../KCD_FTAB_GET | unchanged     | 2014-12-31    | 1                      | unchanged | 3                    | pending            |              |
 
 
 Diagnosis without bookmarks:
