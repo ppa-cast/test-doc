@@ -38,7 +38,7 @@
 - [Application Structure Resources](Application_Structure_Resources.md)
 - [Engineering Resources](Engineering_Resources.md)
 - [Health Results Resources](Health_Results_Resources.md)
-- [Quality and Sizing Model Resources](Quality_and_Sizing+Model_Resources.md)
+- [Quality and Sizing Model Resources](Quality_and_Sizing_Model_Resources.md)
 - [Report Service](Report_Service.md)
 - [Server Services](Server_Services.md)
 - [User Session Services](User_Session_Services.md)
