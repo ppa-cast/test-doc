@@ -1839,32 +1839,231 @@ Note: "findings" are also known as "associated values"
 Note 2: "violation" is also known as "failed check" 
 
 
+### URI Templates 
 
-### URI Templates & Parameters
+- **GET** `{Domain}/components/{ComponentID}/snapshots/{SnapshotID}/violations{?Parameters}`
 
-| HTTP Action | Media Type | URI Templates | Description |
+  - *Description*:
+
+    An empty array if there is no violation or an array with a single violation.
+
+  - *Media Type*:
+    - `application/json`
+
+- **GET** `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/violations{?Parameters}`
+
+  - *Description*:
+
+    Array of Violations that have been raised for this application snapshot.
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv` 
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **GET** `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/violations{?Parameters}`
+
+  - *Description*:
+
+    Array of Violations that have been raised for this module snapshot.
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv` 
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **GET** `{Domain}/tree-nodes/{Level}-{LowerID}-{UpperID}/snapshots/{SnapshotID}/violations{?Parameters}`
+
+  - *Description*:
+
+    Array of Violations raised for this application snapshot in the scope of this tree node
+
+  - *Media Type*:
+    - `application/json`
+    - `text/csv` 
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **GET** `{Domain}/transactions/{TransactionID}/snapshots/{SnapshotID}/violations{?Parameters}` 
+
+  - *Description*:
+
+    Array of Violations raised for this application snapshot in the scope of this transaction 
+    
+  - *Media Type*:
+    - `application/json`
+    - `text/csv` 
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **GET** `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/excluded-violations{?Parameters}` 
+
+  - *Description*:
+
+     Array of Violations that are effectively excluded in this application snapshot
+    
+  - *Media Type*:
+    - `application/json`
+    - `text/csv` 
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+- **GET** `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/removed-violations{?Parameters}` 
+
+  - *Description*:
+
+     Array of Violations removed between this snapshot and the previous snapshot (corrected, excluded, or object no longer exists).
+    
+  - *Media Type*:
+    - `application/json`
+    - `text/csv` 
+    - `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet` 
+
+- **GET** `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/architecture-models/{ModelID}/violations{?Parameters}` 
+
+  - *Description*:
+
+     Array of violations between two layers
+    
+  - *Media Type*:
+    - `application/json`
+
+    
+### Parameters
+
+- **startRow**
+
+    - *Description:* Specify first item (for JSON format only)
+
+    - *Values:* an integer
+
+    - *Default value:* 1
+
+- **nbRows**
+
+    - *Description:* Specify max number of items to return (for JSON format only)
+
+    - *Values:* an integer
+
+    - *Default value:* 10
+
+- **rule-pattern**
+
+    - *Description:* 
+    
+        Specify the Quality Rules with a combination of the following syntaxes, separated by commas:
+
+        - `c:` technicalCriterionId
+        - `cc:` businessCriterionId
+        - `nc:` businessCriterionId
+        - `bqi:` businessCriterionId (Base Quality Indicators, i.e. all quality indicators from a Business Criterion)
+        - `critical-rules` keyword (i.e. identified as critical regarding a business criterion)
+        - a metric type, eg "quality-rules" keyword
+        - a rule pattern id
+        
+        NB: parameter not used for Excluded Violations
+
+    - *Values:* a combination of integers and strings
+       
+    - *Default Value*: All quality rules
+
+- **business-criterion**
+
+    - *Description:*
+    
+        A quality indicator ID of a business criterion (optional parameter) to a dd "Propagated Risk Index" property to components.
+
+        If not specified or not a health factor, components will contain no PRI
+
+        It's up to the requester to set a business criterion consistent with the rule-pattern.
+
+        NB: parameter not used for Excluded Violations and Removed Violations    
+
+    - *Values:* an integer
+
+    - *Default value:* none
+
+- **technologies**
+
+    - *Description:*
+    
+        A technology name to filter violations on
+
+        This parameter is available for ApplicationSnapshot violations and ModuleSnapshot violations, in any Media Type
+
+        NB: parameter not used for Excluded Violations and Removed Violations
+
+    - *Values:* a string
+
+    - *Default value:* none
+    
+- **status**
+
+    - *Description:* 
+
+        A violation status to filter violations on
+        NB: parameter not used for Excluded Violations and Removed Violations
+
+    - *Values:* string
+
+    - *Default value:* none
+
+- **caller-layer **
+
+    - *Description:* The caller layer name — only for Architecture Models 
+
+    - *Values:* string
+
+    - *Default value:* none    
+
+- **callee-layer **
+
+    - *Description:* The callee layer name — only for Architecture Models 
+
+    - *Values:* string
+
+    - *Default value:* none    
+
+
+### Excel/CSV Representation
+
+
+| Columns | Description | Type | Occurs |
 |---|---|---|---|
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/components/{ComponentID}/snapshots/{SnapshotID}/violations{?Parameters}` | An empty array if there is no violation or an array with a single violation. |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/violations{?Parameters}` | Array of Violations raised for this application snapshot. |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/modules/{ModuleID}/snapshots/{SnapshotID}/violations{?Parameters}` | Array of Violations raised for this module snapshot |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/tree-nodes/{Level}-{LowerID}-{UpperID}/snapshots/{SnapshotID}/violations{?Parameters}` | Array of Violations raised for this application snapshot in the scope of this tree node |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/transactions/{TransactionID}/snapshots/{SnapshotID}/violations{?Parameters}` | Array of Violations raised for this application snapshot in the scope of this transaction |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/excluded-violations{?Parameters}` | Array of Violations that are effectively excluded in this application snapshot |
-| GET | application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/removed-violations{?Parameters}` | Array of Violations removed between this snapshot and the previous snapshot (corrected, excluded, or object no longer exists). |
-| GET | application/json | `{Domain}/applications/{ApplicationID}/snapshots/{SnapshotID}/architecture-models/{ModelID}/violations{?Parameters}` | Array of violations between two layers |
+| Quality rule name | Full name of a rule pattern | String | 1 |
+| Metric Id | Quality Rule Id | Integer | 1 |
+| Critical | True if this has a critical contribution to a technical criterion. Defined only for application/module violations and removed-violations templates. | Boolean | 0..1 |
+| Object name location | Full name of the defective component | String | 1 |
+| Object status | Component status on this component compared to the previous snapshot<br/>"added": new component<br/>"unchanged": unchanged component<br/>"updated": updated component<br/> | String | 1 |
+| Snapshot date | Input snapshot Date with YYYY-MM-DD format | String | 1 |
+| Business Criterion | An optional input health factor to filter violations. If this business criterion is a health factor, then a Propagated Risk Propagation Assessment Index is calculated for this Health Factor
+ | String | 0..1 |
+| Risk | Risk propagation assessment index according to an input health factor. | Integer | 0..1 |
+| *Diagnosis Findings Name* | The associated values (with a comma separator in case of multiple values) | String | 1 |
+| Violation status | Diagnosis status on this component compared to the previous snapshot<br/>"added": this component is a newly defective object regarding this quality rule<br/>"updated": some diagnosis results have been changed<br/>"unchanged": compared to the previous snapshot, diagnosis results are left unchanged | String | 1 |
+| Action plan status | Status of a related issue regarding the snapshot of the container (application or module)<br/>"added": newly created issue in the current snapshot<br/>"pending": pending issue, violation is not yet corrected for this snapshot<br/>"solved": issue solved for this snapshot | String | 1 |
+| Action plan tag | A general text intended to replace priority | String | 1 |
+| Exclusion request status | Exclusion request status | String | 1 |
+| Exclusion requester | Name of the EXCLUSION_MANAGER user who requested the exclusion | String | 1 |
 
-**Parameters**
 
-| URI Parameter | Description | Values | Default value |
-|---|---|---|---|
-| startRow | Specify first item (for JSON format only) | an integer | 1 |
-| nbRows | Specify max number of items to return (for JSON format only) | an integer | 10 |
-| rule-pattern | Specify the Quality Rules with a combination of syntaxes: `c:technicalCriterionId`, `cc:businessCriterionId`, `nc:businessCriterionId`, `bqi:businessCriterionId`, `critical-rules`, `quality-rules`, or a rule pattern id. NB: parameter not used for Excluded Violations | a combination of integers and strings | All quality rules |
-| business-criterion | A quality indicator ID of a business criterion to add "Propagated Risk Index" property to components. NB: parameter not used for Excluded Violations and Removed Violations | an integer | None |
-| technologies | A technology name to filter violations on. Available for ApplicationSnapshot and ModuleSnapshot violations. NB: parameter not used for Excluded Violations and Removed Violations | String | none |
-| status | A violation status to filter violations on. NB: parameter not used for Excluded Violations and Removed Violations | String | none |
-| caller-layer | The caller layer name — only for Architecture Models | String | none |
-| callee-layer | The callee layer name — only for Architecture Models | String | none |
+### CSV Example
+
+Diagnosis with bookmarks:
+
+| Quality rule name                            | Metric Id | Business Criterion | Object name location                     | Object Status | Snapshot Date | Propagation Risk Index | Status    | Number of violations | Action Plan Status | Action Plan Priority |
+|----------------------------------------------|-----------|--------------------|------------------------------------------|---------------|---------------|------------------------|-----------|----------------------|--------------------|------------- |
+| Avoid missing WHEN OTHERS in CASE statements | 8028      | Transferability    | F:\USERS\ABD\CAST-TESTS\.../KCD_FTAB_GET | unchanged     | 2014-12-31    | 1                      | unchanged | 3                    | pendingIssues      |              |
+
+
+Diagnosis without bookmarks:
+
+| Quality rule name                               | Metric Id | Business Criterion | Object name location                                        | Object Status    | Snapshot Date | Propagation Risk Index | Status    | Number of violations | Action Plan Status | Action Plan Priority |
+|-------------------------------------------------|-----------|--------------------|-------------------------------------------------------------|------------------|---------------|------------------------|-----------|----------------------|--------------------|------------- |
+Methods_must_have_appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.Monster.Monster           | unchanged        | 2014-12-31    | 1                      | unchanged | 3|_description,in_city,in_pricePerHour | pending  | 
+Methods must have appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.MonsterEvent.addMonster   | unchanged        | 2014-12-31    | 1                      | unchanged | 3 | a,b,c | pending | 
+Methods must have appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.Customer.Customer         | unchanged        | 2014-12-31    | 1                      | unchanged | 3 | a,b,c | pending | 
+Methods must have appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.MonsterEvent.addOption    | unchanged        | 2014-12-31    | 1                      | unchanged | 3 | a,b,c | pending | 
+Methods must have appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.MonsterEvent.MonsterEvent | unchanged        | 2014-12-31    | 1                      | added     | 3 | a,b,c | pending | 
+Methods must have appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.SpookyPlace.SpookyPlace   | unchanged        | 2014-12-31    | 1                      | added     | 3 | a,b,c | pending | 
+
 
 ### JSON Representation
 
@@ -1880,27 +2079,121 @@ Note 2: "violation" is also known as "failed check"
 
 | Properties | Description | Type | Occurs |
 |---|---|---|---|
-| status | Diagnosis status: **"added"**: newly defective object; **"updated"**: some diagnosis results have changed; **"unchanged"**: compared to previous snapshot, diagnosis results are left unchanged | String | 1 |
+| status | Diagnosis status component compared to the previous snapshot : **"added"**: newly defective object; **"updated"**: some diagnosis results have changed; **"unchanged"**: compared to previous snapshot, diagnosis results are left unchanged | String | 1 |
 | findings.ref | A reference to a diagnosis findings structure | URI | 0..1 |
 
-### Excel/CSV Representation
+### JSON Example
 
-| Columns | Description | Type | Occurs |
-|---|---|---|---|
-| Quality rule name | Full name of a rule pattern | String | 1 |
-| Metric Id | Quality Rule Id | Integer | 1 |
-| Critical | True if this has a critical contribution to a technical criterion. Defined only for application/module violations and removed-violations templates. | Boolean | 0..1 |
-| Object name location | Full name of the defective component | String | 1 |
-| Object status | Component status compared to the previous snapshot: "added", "unchanged", "updated" | String | 1 |
-| Snapshot date | Input snapshot Date with YYYY-MM-DD format | String | 1 |
-| Business Criterion | An optional input health factor to filter violations | String | 0..1 |
-| Risk | Risk propagation assessment index according to an input health factor. | Integer | 0..1 |
-| *Diagnosis Findings Name* | The associated values (with a comma separator in case of multiple values) | String | 1 |
-| Violation status | Diagnosis status: "added" (newly defective), "updated" (diagnosis changed), "unchanged" | String | 1 |
-| Action plan status | Status of a related issue: "added" (new in current snapshot), "pending" (not yet corrected), "solved" (corrected) | String | 1 |
-| Action plan tag | A general text intended to replace priority | String | 1 |
-| Exclusion request status | Exclusion request status | String | 1 |
-| Exclusion requester | Name of the EXCLUSION_MANAGER user who requested the exclusion | String | 1 |
+```json
+[
+   { 
+        "component" : {
+            "href": "CENTRAL/components/4/snapshots/5",
+            "name": "com.cast.monster_event.base.model.Monster.Monster", 
+            "propagationRiskIndex" : ....,
+            "status": "unchanged",
+            "sourceCodes": {
+                "href": "CENTRAL/components/4/snapshots/5/source-codes"
+                "name": "Source codes",
+            }
+        },
+        "rulePattern": { 
+            "href": "CENTRAL/rule-patterns/4672",
+            "name": "Methods must have appropriate JavaDoc @param tags"
+        }, 
+        "remedialAction" : { 
+            "dates": {
+                "updated": {"time":...},
+            },
+            "comment": "...",
+            "priority": "high",
+            "status": "added",
+            "tag": "high"
+        },
+        "exclusionRequest": null,
+        "diagnosis": {
+            "status": "unchanged",
+            "findings": {
+                "href": "CENTRAL/components/4/snapshots/5/findings/4672"
+                "name": "Diagnosis Findings"
+            }
+        }
+    }
+]
+```
+
+```json
+[
+    {
+        "component": {
+            "href": "ENDTOEND83/components/15700/snapshots/15",
+            "name": "com.castsoftware.util.string.XMLFileInterpreterImpl.flushSection",
+            "shortName": "flushSection",
+            "status": "unchanged",
+            "sourceCodes": {
+                "href": "ENDTOEND83/components/15700/snapshots/15/source-codes",
+                "name": "Source Codes"
+            },
+            "treeNodes": {
+                "href": "ENDTOEND83/components/15700/snapshots/15/tree-nodes",
+                "name": "Tree Nodes"
+            }
+        },
+        "diagnosis": {
+            "status": "unchanged",
+            "findings": {
+                "href": "ENDTOEND83/components/15700/snapshots/15/findings/7308",
+                "name": "Diagnosis Findings"
+            }
+        },
+        "exclusionRequest": {
+            "status": "added",
+            "userName": "ExclusionMan",
+            "comment": "Meme metrique mais violation added",
+            "dates": {
+                "updated": {
+                    "time": 1497259800000,
+                    "isoDate": "2017-06-12"
+                }
+            }
+        },
+        "rulePattern": {
+            "href": "ENDTOEND83/rule-patterns/7308",
+            "name": "Avoid using Inner Classes"
+        },
+        "remedialAction": null
+    }
+]
+```
+
+ENDTOEND83/applications/3/snapshots/15/excluded-violations
+```json
+[
+    {
+        "rulePattern": {
+            "href": "ENDTOEND83/rule-patterns/1596",
+            "name": "Avoid using \"nullable\" Columns except in the last position in a Table"
+        },
+        "component": {
+            "href": "ENDTOEND83/components/17172/snapshots/15",
+            "name": "O11JNK.LINDBERGH_CENTRAL.PROPATTR",
+            "shortName": "PROPATTR"
+        },
+        "exclusionRequest": {
+            "status": "processed",
+            "userName": "ExclusionMan",
+            "comment": "Char metric, Multiple AV, Processed",
+            "dates": {
+                "updated": {
+                    "time": 1497259800000,
+                    "isoDate": "2017-06-12"
+                }
+            }
+        },
+        "remedialAction": null
+    }
+]
+```
 
 ---
 
