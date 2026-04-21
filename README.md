@@ -6,7 +6,7 @@ see [https://doc.castsoftware.com/export/DASHBOARDS/REST+API+Reference+Documenta
 Each Web Service is described following a template: URI templates, URI parameters, JSON Examples etc.
 Please apply the same template to insert new Web Services documentation or update existing web Services documentation.
 
-The preferred approach is to format the descriptions (URI templates, URI parameters) tables. You may need to insert `<br/>` separator to force a line break.
+The preferred approach is to format the descriptions (URI templates, URI parameters) with tables. You may need to insert `<br/>` separator to force a line break.
 
 > IMPORTANT! However, when the content of the array is too complex, or when the columns are too much narrowed (because of word-break issues), then you can transform the table into a list of paragraphs with the following template:
 
