@@ -2005,7 +2005,7 @@ Note 2: "violation" is also known as "failed check"
 
     - *Default value:* none
 
-- **caller-layer **
+- **caller-layer**
 
     - *Description:* The caller layer name — only for Architecture Models 
 
@@ -2013,7 +2013,7 @@ Note 2: "violation" is also known as "failed check"
 
     - *Default value:* none    
 
-- **callee-layer **
+- **callee-layer**
 
     - *Description:* The callee layer name — only for Architecture Models 
 
@@ -2055,13 +2055,13 @@ Diagnosis with bookmarks:
 
 Diagnosis without bookmarks:
 
-| Quality rule name                               | Metric Id | Business Criterion | Object name location                                        | Object Status    | Snapshot Date | Propagation Risk Index | Status    | Number of violations | Action Plan Status | Action Plan Priority |
-|-------------------------------------------------|-----------|--------------------|-------------------------------------------------------------|------------------|---------------|------------------------|-----------|----------------------|--------------------|------------- |
-Methods_must_have_appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.Monster.Monster           | unchanged        | 2014-12-31    | 1                      | unchanged | 3|_description,in_city,in_pricePerHour | pending  | 
-Methods must have appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.MonsterEvent.addMonster   | unchanged        | 2014-12-31    | 1                      | unchanged | 3 | a,b,c | pending | 
-Methods must have appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.Customer.Customer         | unchanged        | 2014-12-31    | 1                      | unchanged | 3 | a,b,c | pending | 
-Methods must have appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.MonsterEvent.addOption    | unchanged        | 2014-12-31    | 1                      | unchanged | 3 | a,b,c | pending | 
-Methods must have appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.MonsterEvent.MonsterEvent | unchanged        | 2014-12-31    | 1                      | added     | 3 | a,b,c | pending | 
+| Quality rule name                               | Metric Id | Business Criterion | Object name location                                        | Object Status    | Snapshot Date | Propagation Risk Index | Status    | Number of violations | Undocumented parameters | Action Plan Status | Action Plan Priority |
+|-------------------------------------------------|-----------|--------------------|-------------------------------------------------------------|------------------|---------------|------------------------|-----------|----------------------|--------------------|------------- |------------- |
+Methods_must_have_appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.Monster.Monster           | unchanged        | 2014-12-31    | 1                      | unchanged | 3|_description,in_city,in_pricePerHour | pending  | |
+Methods must have appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.MonsterEvent.addMonster   | unchanged        | 2014-12-31    | 1                      | unchanged | 3 | a,b,c | pending | |
+Methods must have appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.Customer.Customer         | unchanged        | 2014-12-31    | 1                      | unchanged | 3 | a,b,c | pending | |
+Methods must have appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.MonsterEvent.addOption    | unchanged        | 2014-12-31    | 1                      | unchanged | 3 | a,b,c | pending | |
+Methods must have appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.MonsterEvent.MonsterEvent | unchanged        | 2014-12-31    | 1                      | added     | 3 | a,b,c | pending | |
 Methods must have appropriate JavaDoc @param tags | 4672      | Transferability    | com.cast.monster_event.base.model.SpookyPlace.SpookyPlace   | unchanged        | 2014-12-31    | 1                      | added     | 3 | a,b,c | pending | 
 
 
