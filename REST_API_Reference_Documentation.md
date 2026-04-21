@@ -35,13 +35,13 @@
 
 ## Resources and Services
 
-- [Application Structure Resources - 2.11](Application_Structure_Resources_2.12.md)
-- [Engineering Resources - 2.11](Engineering_Resources_2.12.md)
-- [Health Results Resources - 2.11](Health_Results_Resources_2.12.md)
-- [Quality and Sizing Model Resources - 2.12](Quality_and_Sizing+Model_Resources_2.12.md)
-- [Report Service - 2.12](Report_Service_2.12.md)
-- [Server Services - 2.12](Server_Services_2.12.md)
-- [User Session Services - 2.11](User_Session_Services_2.11.md)
+- [Application Structure Resources](Application_Structure_Resources.md)
+- [Engineering Resources](Engineering_Resources.md)
+- [Health Results Resources](Health_Results_Resources.md)
+- [Quality and Sizing Model Resources](Quality_and_Sizing+Model_Resources.md)
+- [Report Service](Report_Service.md)
+- [Server Services](Server_Services.md)
+- [User Session Services](User_Session_Services.md)
 
 **Target audience:**
 
