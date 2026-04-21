@@ -1,14 +1,3 @@
-"# test-doc" 
-Application_Structure_Resources_2.12.md
-
-Health_Results_Resources_2.12.md
-Quality_and_Sizing_Model_Resources_2.12.md
-Report Services_2.12.md
-Server Services_2.12.md
-User Session Services_2.11.md
-
---
-
 Each markdown file has been converted from a HTML page edited with Confluence
 see [https://doc.castsoftware.com/export/DASHBOARDS/REST+API+Reference+Documentation+-+2.12](https://doc.castsoftware.com/export/DASHBOARDS/REST+API+Reference+Documentation+-+2.12)
 

@@ -1,6 +1,4 @@
-# User Session Services - 2.11
-
-*Created by N Padmavathi on Jan 31, 2023*
+# User Session Services
 
 ---
 

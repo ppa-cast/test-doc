@@ -1,6 +1,4 @@
-# Health Results Resources - 2.12
-
-*Created by James Hurrell on Apr 4, 2024*
+# Health Results Resources
 
 ---
 

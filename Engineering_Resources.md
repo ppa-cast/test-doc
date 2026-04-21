@@ -1,6 +1,4 @@
-# Engineering Resources - 2.12
-
-*Created by James Hurrell on Apr 4, 2024*
+# Engineering Resources
 
 > **Warning: Dashboard Service database only**
 

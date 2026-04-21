@@ -1,4 +1,4 @@
-# REST API Reference Documentation - 2.12
+# REST API Reference Documentation
 
 ---
 

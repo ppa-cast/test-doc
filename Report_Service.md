@@ -1,6 +1,4 @@
-# Report Service - 2.12
-
-*Created by James Hurrell on Apr 4, 2024*
+# Report Service
 
 ---
 
